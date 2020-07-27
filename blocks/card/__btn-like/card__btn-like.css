@@ -1,0 +1,17 @@
+.card__btn-like {
+    grid-area: btn-like;
+    display: block;
+    background-color: inherit;
+    border: 0;
+    background-image: url(card__btn-like.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 20px;
+    width: 22px;
+    margin: auto auto auto 0;
+}
+
+.card__btn-like:hover {
+    cursor: pointer;
+}

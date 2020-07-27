@@ -1,0 +1,14 @@
+.page__wrapper {
+    max-width: 882px;
+    min-width: 300px;
+    margin: 0 auto;
+    margin-top: 28px;
+    margin-bottom: 36px;
+}
+
+@media screen and (min-width: 882px) {
+    .page__wrapper {
+        margin-top: 45px;
+        margin-bottom: 60px;
+    }
+}

@@ -1,0 +1,9 @@
+.page__margin-wrapper {
+    margin: 0 19px;
+}
+
+@media screen and (min-width: 882px) {
+    .page__margin-wrapper {
+        margin: 0 max(0px, 19px -  calc(100vw - 882px));
+    }
+}

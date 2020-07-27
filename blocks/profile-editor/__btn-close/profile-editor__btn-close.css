@@ -1,0 +1,24 @@
+.profile-editor__btn-close {
+    height: 40px;
+    width: 40px;
+    background-image: url(./profile-editor__btn-close.svg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: fixed;
+    border: none;
+    right: 0;
+    top: 0;
+    transform: translate(0%, 0%);
+    filter: invert();
+    cursor: pointer;
+    background-color: rgba(0,0,0,0);
+}
+
+@media screen and (min-width:510px) {
+    .profile-editor__btn-close {
+        transform: translate(100%, -100%);
+        filter: none;
+    }
+    
+}

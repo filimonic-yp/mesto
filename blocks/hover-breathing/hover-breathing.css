@@ -1,0 +1,9 @@
+@import url(_deep/hover-breathing_deep.css);
+@import url(_shallow/hover-breathing_shallow.css);
+
+
+.hover-breathing {
+    opacity: 1;
+    transition: linear opacity .4s;
+}
+
