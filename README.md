@@ -1,17 +1,20 @@
 # Проект 4: Место
 
-### Обзор
+* [Ссылка на прототип](https://filimonic-yp.github.io/mesto)
 
-* Figma
-* Картинки
+## Место: Как инстаграм, только проще
 
-**Figma**
+### Описание
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+Тренировочный проект по созданию "лайкабельной" фотогалереи.
 
-**Картинки**
+### Технологии
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
-
-Удачи!
+* [Макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+* Картинки из макета, оптимизированы в [TinyPNG](https://tinypng.com/)
+* Javascript
+* Normalize.css
+* CSS
+* BEM
+* HTML5
+* VSCode

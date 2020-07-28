@@ -3,14 +3,17 @@
   box-sizing: border-box;
   height: 18px;
   width: 18px;
+  min-width: 18px;
   background-color: inherit;
   border: 1px solid #fff;
   background-image: url(./profile__btn-edit.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: calc(7.5 / 18 * 100%);
+  background-size: auto;
+  padding: 0;
+  /* background-size: calc(7.5 / 18 * 100%); */
   margin-left: 11px;
-  
+
 }
 
 .profile__btn-edit:hover {
@@ -21,6 +24,7 @@
   .profile__btn-edit {
     height: 24px;
     width: 24px;
+    min-width: 24px;
     margin-left: 17px;
   }
 }

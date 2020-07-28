@@ -12,56 +12,59 @@
       <div class="header__logo"></div>
     </header>
     <main class="main page__margin-wrapper">
-      <div class="profile">
-        <img class="profile__avatar" alt="avatar" src="images/avatar.jpg">
+      <section class="profile">
+        <img class="profile__avatar" alt="Изображение пользователя" src="images/avatar.jpg">
         <div class="profile__info">
-          <p class="profile__displayname-wrapper"><span class="profile__displayname">Жак-Ив Кусто</span><button class="profile__btn-edit hover-breathing hover-breathing_deep"></button></p>
-          <p class="profile__job">Исследователь океана</p>
+          <div class="profile__display-name-wrapper">
+            <h1 class="profile__display-name">Жак-Ив Кусто | Jacques-Yves Cousteau</h1>
+            <button class="profile__btn-edit hover-breathing hover-breathing_deep" type="button"></button></div>
+          <p class="profile__job"> французский исследователь Мирового океана, фотограф, режиссёр, изобретатель, автор множества книг и фильмов. Являлся членом Французской академии. Командор ордена Почётного легиона. Известен как Капитан Кусто (фр. Commandant Cousteau). Совместно с Эмилем Ганьяном в 1943 году разработал и испытал акваланг. В его честь назван уступ Кусто на Плутоне.</p>
         </div>
-        <button class="profile__btn-add hover-breathing hover-breathing_deep" tabindex="-1"></button>
-      </div>
+        <button class="profile__btn-add hover-breathing hover-breathing_deep" type="button"></button>
+      </section>
       <ul class="cards">
         <li class="card">
           <img class="card__image" src="images/card__image/card__image_01.png" alt="Карачаевск">
           <p class="card__caption">Карачаевск</p>
-          <button class="card__btn-like" tabindex="-1"></button>
+          <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
         </li>
         <li class="card">
           <img class="card__image" src="images/card__image/card__image_02.png" alt="Гора Эльбрус">
           <p class="card__caption">Гора Эльбрус</p>
-          <button class="card__btn-like" tabindex="-1"></button>
+          <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
         </li>
         <li class="card">
           <img class="card__image" src="images/card__image/card__image_03.png" alt="Домбай">
           <p class="card__caption">Домбай</p>
-          <button class="card__btn-like" tabindex="-1"></button>
+          <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
         </li>
         <li class="card">
           <img class="card__image" src="images/card__image/card__image_04.png" alt="Гора Эльбрус">
           <p class="card__caption">Гора Эльбрус</p>
-          <button class="card__btn-like" tabindex="-1"></button>
+          <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
         </li>
         <li class="card">
           <img class="card__image" src="images/card__image/card__image_05.png" alt="Домбай">
           <p class="card__caption">Домбай</p>
-          <button class="card__btn-like" tabindex="-1"></button>
+          <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
         </li>
         <li class="card">
           <img class="card__image" src="images/card__image/card__image_06.png" alt="Карачаево-Черкесия">
           <p class="card__caption">Карачаево-Черкесия</p>
-          <button class="card__btn-like" tabindex="-1"></button>
+          <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
         </li>
       </ul>
     </main>
     <div class="popup">
       <div class="popup__container">
-        <form class="profile-editor">
+        <form class="profile-editor" name="profile-editor">
           <p class="profile-editor__title">Редактировать профиль</p>
-          <input class="profile-editor__input" type="text" name="displayname" autocomplete="name" placeholder="Имя" required>
-          <input class="profile-editor__input" type="text" name="jobname" placeholder="род деятельности" required>
+          <input class="profile-editor__input" type="text" name="display-name" autocomplete="name" placeholder="Имя (не пустое)" required pattern="^.*[^\s].*$">
+          <input class="profile-editor__input" type="text" name="job-name" placeholder=" Род деятельности" >
           <button class="profile-editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-profile-info">Сохранить</button>
+          <button class="profile-editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         </form>
-        <button class="profile-editor__btn-close hover-breathing hover-breathing_deep"></button>
+
 
       </div>
 
@@ -70,6 +73,6 @@
       © 2020 Mesto Russia
     </footer>
   </div>
-  <script src="index.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
 </html>

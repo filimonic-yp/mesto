@@ -6,10 +6,12 @@
   align-items: inherit;
   align-self: center;
   margin-left: 30px;
+  margin-right: 30px;
 }
 
 @media screen and (max-width:882px) {
   .profile__info {
     margin-left: 0;
+    margin-right: 0;
   }
 }
