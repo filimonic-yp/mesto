@@ -15,41 +15,41 @@
             <div class="profile">
                 <img class="profile__avatar" alt="avatar" src="images/avatar.jpg">
                 <div class="profile__info">
-                    <p class="profile__username">Жак-Ив Кусто<button class="profile__btn-edit hover-breathing hover-breathing_deep"></button></p>
+                    <p class="profile__displayname-wrapper"><span class="profile__displayname">Жак-Ив Кусто</span><button class="profile__btn-edit hover-breathing hover-breathing_deep"></button></p>
                     <p class="profile__job">Исследователь океана</p>
                 </div>
-                <button class="profile__btn-add hover-breathing hover-breathing_deep"></button>
+                <button class="profile__btn-add hover-breathing hover-breathing_deep" tabindex="-1"></button>
             </div>
             <ul class="cards">
                 <li class="card">
                     <img class="card__image" src="images/card__image/card__image_01.png"></img>
                     <p class="card__caption">Карачаево-Черкесия</p>
-                    <button class="card__btn-like"></button>
+                    <button class="card__btn-like" tabindex="-1"></button>
                 </li>
                 <li class="card">
                     <img class="card__image" src="images/card__image/card__image_01.png"></img>
                     <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like"></button>
+                    <button class="card__btn-like" tabindex="-1"></button>
                 </li>
                 <li class="card">
                     <img class="card__image" src="images/card__image/card__image_01.png"></img>
                     <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like"></button>
+                    <button class="card__btn-like" tabindex="-1"></button>
                 </li>
                 <li class="card">
                     <img class="card__image" src="images/card__image/card__image_01.png"></img>
                     <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like"></button>
+                    <button class="card__btn-like" tabindex="-1"></button>
                 </li>
                 <li class="card">
                     <img class="card__image" src="images/card__image/card__image_01.png"></img>
                     <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like"></button>
+                    <button class="card__btn-like" tabindex="-1"></button>
                 </li>
                 <li class="card">
                     <img class="card__image" src="images/card__image/card__image_01.png"></img>
                     <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like"></button>
+                    <button class="card__btn-like" tabindex="-1"></button>
                 </li>
             </ul>
         </main>
@@ -57,8 +57,8 @@
             <div class="popup__container">
                 <form class="profile-editor">
                     <p class="profile-editor__title">Редактировать профиль</p>
-                    <input class="profile-editor__input" type="text" name="display-name" autocomplete="name" value="Жак-Ив Кусто">
-                    <input class="profile-editor__input" type="text" name="job-name" value="Исследователь океана">
+                    <input class="profile-editor__input" type="text" name="displayname" autocomplete="name" placeholder="Имя">
+                    <input class="profile-editor__input" type="text" name="jobname" placeholder="род деятельности">
                     <button class="profile-editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-profile-info">Сохранить</button>
                 </form>
                 <button class="profile-editor__btn-close hover-breathing hover-breathing_deep"></button>
@@ -70,6 +70,6 @@
             © 2020 Mesto Russia
         </footer>
     </div>
-    
+    <script src="index.js"></script>
 </body>
 </html>

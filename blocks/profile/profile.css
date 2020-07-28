@@ -1,6 +1,6 @@
 @import url(__avatar/profile__avatar.css);
 @import url(__info/profile__info.css);
-@import url(__username/profile__username.css);
+@import url(__displayname-wrapper/profile__displayname-wrapper.css);
 @import url(__job/profile__job.css);
 @import url(__btn-edit/profile__btn-edit.css);
 @import url(__btn-add/profile___btn-add.css);

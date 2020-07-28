@@ -1,4 +1,4 @@
-.profile__username {
+.profile__displayname-wrapper {
     display: block;
     font-weight: 500;
     font-size: 27px;
@@ -9,7 +9,7 @@
 
 
 @media screen and (min-width:882px) {
-    .profile__username {
+    .profile__displayname-wrapper {
         margin-top: 0;
         font-size: 42px;
     }
