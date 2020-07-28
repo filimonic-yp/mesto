@@ -35,9 +35,13 @@ function showPopup() {
   popupInputDisplaynameEl.focus();
 }
 
+function stringIsNullOrWhitespace(s) {
+  return !s || null === s || 0 === s.length || /^\s*$/.test(s);
+}
+
 function closePopup(doSave) {
   console.log(`${getFuncName()} : doSave = ${doSave}`);
-  if (doSave) {
+  if (doSave && !stringIsNullOrWhitespace(popupInputDisplaynameEl.value) && !stringIsNullOrWhitespace(popupInputJobEl.value)) {
     setupProfile({
       displayname: popupInputDisplaynameEl.value,
       job: popupInputJobEl.value,

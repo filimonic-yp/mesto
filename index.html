@@ -1,9 +1,11 @@
-//FIXME: Сглаживание
+//FIXME: Сглаживание +
+//FIXME: EditorConfig и отступы +
+//FIXME: Замена картинок+
+//FIXME: Сжатие картинок+
+
 //FIXME: Пробежка по брифу
 //FIXME: W3C
-//FIXME: EditorConfig и отступы
-//FIXME: Замена картинок
-//FIXME: Сжатие картинок
+//FIXME: GHPages
 
 
 
@@ -31,33 +33,33 @@
       </div>
       <ul class="cards">
         <li class="card">
-          <img class="card__image" src="images/card__image/card__image_01.png"></img>
+          <img class="card__image" src="images/card__image/card__image_01.png" alt="Карачаевск"></img>
+          <p class="card__caption">Карачаевск</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_02.png" alt="Гора Эльбрус"></img>
+          <p class="card__caption">Гора Эльбрус</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_03.png" alt="Домбай"></img>
+          <p class="card__caption">Домбай</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_04.png" alt="Гора Эльбрус"></img>
+          <p class="card__caption">Гора Эльбрус</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_05.png" alt="Домбай"></img>
+          <p class="card__caption">Домбай</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_06.png" alt="Карачаево-Черкесия"></img>
           <p class="card__caption">Карачаево-Черкесия</p>
-          <button class="card__btn-like" tabindex="-1"></button>
-        </li>
-        <li class="card">
-          <img class="card__image" src="images/card__image/card__image_01.png"></img>
-          <p class="card__caption">Карачаевск</p>
-          <button class="card__btn-like" tabindex="-1"></button>
-        </li>
-        <li class="card">
-          <img class="card__image" src="images/card__image/card__image_01.png"></img>
-          <p class="card__caption">Карачаевск</p>
-          <button class="card__btn-like" tabindex="-1"></button>
-        </li>
-        <li class="card">
-          <img class="card__image" src="images/card__image/card__image_01.png"></img>
-          <p class="card__caption">Карачаевск</p>
-          <button class="card__btn-like" tabindex="-1"></button>
-        </li>
-        <li class="card">
-          <img class="card__image" src="images/card__image/card__image_01.png"></img>
-          <p class="card__caption">Карачаевск</p>
-          <button class="card__btn-like" tabindex="-1"></button>
-        </li>
-        <li class="card">
-          <img class="card__image" src="images/card__image/card__image_01.png"></img>
-          <p class="card__caption">Карачаевск</p>
           <button class="card__btn-like" tabindex="-1"></button>
         </li>
       </ul>
@@ -66,8 +68,8 @@
       <div class="popup__container">
         <form class="profile-editor">
           <p class="profile-editor__title">Редактировать профиль</p>
-          <input class="profile-editor__input" type="text" name="displayname" autocomplete="name" placeholder="Имя">
-          <input class="profile-editor__input" type="text" name="jobname" placeholder="род деятельности">
+          <input class="profile-editor__input" type="text" name="displayname" autocomplete="name" placeholder="Имя" required>
+          <input class="profile-editor__input" type="text" name="jobname" placeholder="род деятельности" required>
           <button class="profile-editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-profile-info">Сохранить</button>
         </form>
         <button class="profile-editor__btn-close hover-breathing hover-breathing_deep"></button>
