@@ -1,13 +1,13 @@
 .profile-editor__btn-submit {
-    display: block;
-    height: 50px;
-    width: 100%;
-    background-color: black;
-    border: none;
-    color: white;
-    font-size: 18px;
-    line-height: 22px;
-    padding: 0;
-    margin-top: 48px;
-    cursor: pointer;
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  border: none;
+  color: white;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 0;
+  margin-top: 48px;
+  cursor: pointer;
 }

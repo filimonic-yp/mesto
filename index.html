@@ -1,75 +1,84 @@
+//FIXME: Сглаживание
+//FIXME: Пробежка по брифу
+//FIXME: W3C
+//FIXME: EditorConfig и отступы
+//FIXME: Замена картинок
+//FIXME: Сжатие картинок
+
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="pages/index.css">
-    <title>Mesto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="pages/index.css">
+  <title>Mesto</title>
 </head>
 <body class="page">
-    <div class="page__wrapper">
-        <header class="header">
-            <div class="header__logo"></div>
-        </header>
-        <main class="main page__margin-wrapper">
-            <div class="profile">
-                <img class="profile__avatar" alt="avatar" src="images/avatar.jpg">
-                <div class="profile__info">
-                    <p class="profile__displayname-wrapper"><span class="profile__displayname">Жак-Ив Кусто</span><button class="profile__btn-edit hover-breathing hover-breathing_deep"></button></p>
-                    <p class="profile__job">Исследователь океана</p>
-                </div>
-                <button class="profile__btn-add hover-breathing hover-breathing_deep" tabindex="-1"></button>
-            </div>
-            <ul class="cards">
-                <li class="card">
-                    <img class="card__image" src="images/card__image/card__image_01.png"></img>
-                    <p class="card__caption">Карачаево-Черкесия</p>
-                    <button class="card__btn-like" tabindex="-1"></button>
-                </li>
-                <li class="card">
-                    <img class="card__image" src="images/card__image/card__image_01.png"></img>
-                    <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like" tabindex="-1"></button>
-                </li>
-                <li class="card">
-                    <img class="card__image" src="images/card__image/card__image_01.png"></img>
-                    <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like" tabindex="-1"></button>
-                </li>
-                <li class="card">
-                    <img class="card__image" src="images/card__image/card__image_01.png"></img>
-                    <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like" tabindex="-1"></button>
-                </li>
-                <li class="card">
-                    <img class="card__image" src="images/card__image/card__image_01.png"></img>
-                    <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like" tabindex="-1"></button>
-                </li>
-                <li class="card">
-                    <img class="card__image" src="images/card__image/card__image_01.png"></img>
-                    <p class="card__caption">Карачаевск</p>
-                    <button class="card__btn-like" tabindex="-1"></button>
-                </li>
-            </ul>
-        </main>
-        <div class="popup">
-            <div class="popup__container">
-                <form class="profile-editor">
-                    <p class="profile-editor__title">Редактировать профиль</p>
-                    <input class="profile-editor__input" type="text" name="displayname" autocomplete="name" placeholder="Имя">
-                    <input class="profile-editor__input" type="text" name="jobname" placeholder="род деятельности">
-                    <button class="profile-editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-profile-info">Сохранить</button>
-                </form>
-                <button class="profile-editor__btn-close hover-breathing hover-breathing_deep"></button>
-
-            </div>
-
+  <div class="page__wrapper">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+    <main class="main page__margin-wrapper">
+      <div class="profile">
+        <img class="profile__avatar" alt="avatar" src="images/avatar.jpg">
+        <div class="profile__info">
+          <p class="profile__displayname-wrapper"><span class="profile__displayname">Жак-Ив Кусто</span><button class="profile__btn-edit hover-breathing hover-breathing_deep"></button></p>
+          <p class="profile__job">Исследователь океана</p>
         </div>
-        <footer class="footer page__margin-wrapper">
-            © 2020 Mesto Russia
-        </footer>
+        <button class="profile__btn-add hover-breathing hover-breathing_deep" tabindex="-1"></button>
+      </div>
+      <ul class="cards">
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_01.png"></img>
+          <p class="card__caption">Карачаево-Черкесия</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_01.png"></img>
+          <p class="card__caption">Карачаевск</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_01.png"></img>
+          <p class="card__caption">Карачаевск</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_01.png"></img>
+          <p class="card__caption">Карачаевск</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_01.png"></img>
+          <p class="card__caption">Карачаевск</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+        <li class="card">
+          <img class="card__image" src="images/card__image/card__image_01.png"></img>
+          <p class="card__caption">Карачаевск</p>
+          <button class="card__btn-like" tabindex="-1"></button>
+        </li>
+      </ul>
+    </main>
+    <div class="popup">
+      <div class="popup__container">
+        <form class="profile-editor">
+          <p class="profile-editor__title">Редактировать профиль</p>
+          <input class="profile-editor__input" type="text" name="displayname" autocomplete="name" placeholder="Имя">
+          <input class="profile-editor__input" type="text" name="jobname" placeholder="род деятельности">
+          <button class="profile-editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-profile-info">Сохранить</button>
+        </form>
+        <button class="profile-editor__btn-close hover-breathing hover-breathing_deep"></button>
+
+      </div>
+
     </div>
-    <script src="index.js"></script>
+    <footer class="footer page__margin-wrapper">
+      © 2020 Mesto Russia
+    </footer>
+  </div>
+  <script src="index.js"></script>
 </body>
 </html>

@@ -4,15 +4,15 @@
 
 
 .card {
-    min-width: 282px;
-    display: block;
-    min-height: 361px;
-    display: grid;
-    grid-template-areas: 
-        "image image   image    image   "
-        ".     caption btn-like btn-like";
-    grid-template-columns: 21px 1fr 21px 21px;
-    grid-template-rows: 1fr auto;
-    background-color: white;
-    border-radius: 4%;
+  min-width: 282px;
+  display: block;
+  min-height: 361px;
+  display: grid;
+  grid-template-areas: 
+    "image image   image    image   "
+    ".     caption btn-like btn-like";
+  grid-template-columns: 21px 1fr 21px 21px;
+  grid-template-rows: 1fr auto;
+  background-color: white;
+  border-radius: 4%;
 }

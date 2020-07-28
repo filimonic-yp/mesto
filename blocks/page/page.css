@@ -2,7 +2,14 @@
 @import url(__margin-wrapper/page__margin-wrapper.css);
 
 .page {
-    background-color: #000;
-    font-family: "Inter", sans-serif; /* According to https://rsms.me/inter/#usage */
-    color: #fff;
+  background-color: #000;
+  font-family: "Inter", sans-serif; /* According to https://rsms.me/inter/#usage */
+  color: #fff;
+
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

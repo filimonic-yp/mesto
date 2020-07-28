@@ -6,16 +6,16 @@
 @import url(__btn-add/profile___btn-add.css);
 
 .profile {
-    display: flex;
-    flex-direction: row;
-    justify-items: flex-start;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 @media screen and (max-width:882px) {
-    .profile {
-        flex-direction: column;
-        align-items: center;
-    }
+  .profile {
+    flex-direction: column;
+    align-items: center;
+  }
 }
