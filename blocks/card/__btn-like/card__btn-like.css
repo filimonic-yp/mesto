@@ -1,9 +1,10 @@
+
 .card__btn-like {
   grid-area: btn-like;
   display: block;
   background-color: inherit;
   border: 0;
-  background-image: url(card__btn-like.svg);
+  background-image: url(card__btn-like_empty.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

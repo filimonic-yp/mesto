@@ -10,7 +10,11 @@
 /* popup load order */
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
-@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__editor-container/popup__editor-container.css);
+@import url(../blocks/popup/__viewer-container/popup__viewer-container.css);
 
-@import url(../blocks/profile-editor/profile-editor.css);
+@import url(../blocks/popup-viewer/popup-viewer.css);
+
+@import url(../blocks/viewer/viewer.css);
+@import url(../blocks/editor/editor.css);
 @import url(../blocks/hover-breathing/hover-breathing.css);

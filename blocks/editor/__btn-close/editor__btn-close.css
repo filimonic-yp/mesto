@@ -1,11 +1,11 @@
-.profile-editor__btn-close {
+.editor__btn-close {
   height: 40px;
   width: 40px;
-  background-image: url(./profile-editor__btn-close.svg);
+  background-image: url(editor__btn-close.svg);
   background-position: center;
   background-size: auto;
   background-repeat: no-repeat;
-  position: fixed;
+  position: absolute;
   border: none;
   right: 0;
   top: 0;
@@ -16,7 +16,7 @@
 }
 
 @media screen and (min-width:510px) {
-  .profile-editor__btn-close {
+  .editor__btn-close {
     transform: translate(100%, -100%) translate(-3px, +2px);
     filter: none;
   }

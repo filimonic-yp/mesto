@@ -1,0 +1,11 @@
+.viewer__image {
+  display: block;
+  position: relative;
+  width: auto;
+
+
+
+  max-height: 75vh;
+  max-width: 75vw;
+  object-fit: contain;
+}

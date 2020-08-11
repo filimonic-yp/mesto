@@ -1,0 +1,10 @@
+.viewer__title {
+  display: block;
+  flex: none;
+  align-self: flex-start;
+  padding: 0;
+  margin: 0;
+  padding-top: 10px;
+  font-size: 12px;
+  line-height: 15px;
+}

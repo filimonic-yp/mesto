@@ -1,0 +1,13 @@
+.popup__viewer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 100%;
+  background-color: transparent;
+  max-width: 75vw;
+  width: min-content;
+  margin: auto;
+
+}

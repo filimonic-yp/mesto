@@ -1,18 +1,24 @@
 @import url(__image/card__image.css);
 @import url(__caption/card__caption.css);
 @import url(__btn-like/card__btn-like.css);
+@import url(__btn-remove/card__btn-remove.css);
+@import url(__btn-like/_liked/card__btn-like_liked.css);
 
 
 .card {
+  position: relative;
+  top:0;
+  left:0;
   min-width: 282px;
   display: block;
   min-height: 361px;
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
     "image image   image    image   "
     ".     caption btn-like btn-like";
   grid-template-columns: 21px 1fr 21px 21px;
   grid-template-rows: 1fr auto;
   background-color: white;
   border-radius: 4%;
+  overflow: hidden;
 }
