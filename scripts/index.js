@@ -98,8 +98,8 @@ function showPopupProfileEditor()
 
 function showPopupImageAdder()
 {
-  popupEditor.InputLine1El.value = 'Новое Место';
-  popupEditor.InputLine2El.value = 'https://images.unsplash.com/photo-1597099119865-f5b12f4d4f31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80';
+  popupEditor.InputLine1El.value = '';
+  popupEditor.InputLine2El.value = '';
 
   showPopupEditor(editorOptions.imageAdder, popupEditor);
 }
