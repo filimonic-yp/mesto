@@ -116,7 +116,7 @@ function removeCard(evt)
   evt.target.closest('.card').remove();
 }
 
-function addCard(card = {link: 'images/card__image_noimage.png'})
+function addCard(card)
 {
   const cardElement = cardTemplate.content.cloneNode(true);
   const cardImageElement = cardElement.querySelector('.card__image');
