@@ -32,19 +32,19 @@ const profileTxtJobEl         = profileEl.querySelector('.profile__job');
 const profileBtnEditEl        = profileEl.querySelector('.profile__btn-edit');
 const profileBtnAddCardEl     = profileEl.querySelector('.profile__btn-add');
 
-const popupEditorProfileEl           = document.querySelector('.popup-editor_profile');
+const popupEditorProfileEl                 = document.querySelector('.popup-editor_profile');
 const popupEditorProfileInputDisplayNameEl = popupEditorProfileEl.querySelector('.editor__input[name="display-name"]');
 const popupEditorProfileInputJobEl         = popupEditorProfileEl.querySelector('.editor__input[name="job"]');
 const popupEditorProfileBtnCloseEl         = popupEditorProfileEl.querySelector('.editor__btn-close');
 const popupEditorProfileFormEl             = popupEditorProfileEl.querySelector('.editor');
 
-const popupEditorImageAdderEl        = document.querySelector('.popup-editor_image-adder');
-const popupEditorImageAdderInputNameEl     = popupEditorImageAdderEl.querySelector('.editor__input[name="display-name"]');
-const popupEditorImageAdderInputUrlEl      = popupEditorImageAdderEl.querySelector('.editor__input[name="image-url"]');
-const popupEditorImageAdderBtnCloseEl      = popupEditorImageAdderEl.querySelector('.editor__btn-close');
-const popupEditorImageAdderFormEl          = popupEditorImageAdderEl.querySelector('.editor');
+const popupEditorImageAdderEl          = document.querySelector('.popup-editor_image-adder');
+const popupEditorImageAdderInputNameEl = popupEditorImageAdderEl.querySelector('.editor__input[name="display-name"]');
+const popupEditorImageAdderInputUrlEl  = popupEditorImageAdderEl.querySelector('.editor__input[name="image-url"]');
+const popupEditorImageAdderBtnCloseEl  = popupEditorImageAdderEl.querySelector('.editor__btn-close');
+const popupEditorImageAdderFormEl      = popupEditorImageAdderEl.querySelector('.editor');
 
-const popupViewerEl = document.querySelector('.popup-viewer')
+const popupViewerEl         = document.querySelector('.popup-viewer')
 const popupViewerBtnCloseEl = popupViewerEl.querySelector('.viewer__btn-close');
 const popupViewerImageEl    = popupViewerEl.querySelector('.viewer__image');
 const popupViewerTitle      = popupViewerEl.querySelector('.viewer__title');
