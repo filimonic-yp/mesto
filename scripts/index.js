@@ -25,147 +25,86 @@ const initialCards = [
   }
 ];
 
-const editorOptions = {
-  profileEditor: {
-    InputLine1Options: {
-      autocomplete: 'name',
-      placeholder: 'Имя (не пустое)',
-      required: true,
-      type: 'text',
-      pattern: '^.*[^\s].*$',
-    },
-    InputLine2Options: {
-      autocomplete: 'none',
-      placeholder: 'Род деятельности',
-      required: null,
-      type: 'text',
-      pattern: '.*',
-    },
-    editorType: 'profileEditor',
-    editorTitle: 'Редактировать профиль'
-  },
 
-  imageAdder: {
-    InputLine1Options: {
-      autocomplete: 'none',
-      placeholder: 'Название места (не пустое)',
-      required: true,
-      type: 'text',
-      pattern: '^.*[^\s].*$',
-    },
-    InputLine2Options: {
-      autocomplete: 'none',
-      placeholder: 'Ссылка на картинку',
-      required: true,
-      type: 'url',
-      pattern: '.*',
-    },
-    editorType: 'imageAdder',
-    editorTitle: 'Новое место'
-  },
-}
+const profileEl               = document.querySelector('.profile')
+const profileTxtDisplayNameEl = profileEl.querySelector('.profile__display-name');
+const profileTxtJobEl         = profileEl.querySelector('.profile__job');
+const profileBtnEditEl        = profileEl.querySelector('.profile__btn-edit');
+const profileBtnAddCardEl     = profileEl.querySelector('.profile__btn-add');
 
-const profile = { rootEl: document.querySelector('.profile') }
-  profile.TxtDisplayNameEl = profile.rootEl.querySelector('.profile__display-name');
-  profile.TxtJobEl         = profile.rootEl.querySelector('.profile__job');
-  profile.BtnEditEl        = profile.rootEl.querySelector('.profile__btn-edit');
-  profile.BtnAddCardEl     = profile.rootEl.querySelector('.profile__btn-add');
+const popupEditorProfileEl           = document.querySelector('.popup-editor_profile');
+const popupEditorProfileInputDisplayNameEl = popupEditorProfileEl.querySelector('.editor__input[name="display-name"]');
+const popupEditorProfileInputJobEl         = popupEditorProfileEl.querySelector('.editor__input[name="job"]');
+const popupEditorProfileBtnCloseEl         = popupEditorProfileEl.querySelector('.editor__btn-close');
+const popupEditorProfileFormEl             = popupEditorProfileEl.querySelector('.editor');
 
-const popupEditor = {rootEl: document.querySelector('.popup-editor')}
-  popupEditor.InputLine1El = popupEditor.rootEl.querySelector('.editor__input[name="line1"]');
-  popupEditor.InputLine2El = popupEditor.rootEl.querySelector('.editor__input[name="line2"]');
-  popupEditor.EditorTypeEl = popupEditor.rootEl.querySelector('*[name="editorType"]');
-  popupEditor.BtnCloseEl        = popupEditor.rootEl.querySelector('.editor__btn-close');
-  popupEditor.FormEl            = popupEditor.rootEl.querySelector('.editor');
-  popupEditor.FormTitleEl       = popupEditor.rootEl.querySelector('.editor__title');
+const popupEditorImageAdderEl        = document.querySelector('.popup-editor_image-adder');
+const popupEditorImageAdderInputNameEl     = popupEditorImageAdderEl.querySelector('.editor__input[name="display-name"]');
+const popupEditorImageAdderInputUrlEl      = popupEditorImageAdderEl.querySelector('.editor__input[name="image-url"]');
+const popupEditorImageAdderBtnCloseEl      = popupEditorImageAdderEl.querySelector('.editor__btn-close');
+const popupEditorImageAdderFormEl          = popupEditorImageAdderEl.querySelector('.editor');
 
-const popupViewer = {rootEl: document.querySelector('.popup-viewer')}
-  popupViewer.BtnCloseEl = popupViewer.rootEl.querySelector('.viewer__btn-close');
-  popupViewer.ImageEl    = popupViewer.rootEl.querySelector('.viewer__image');
-  popupViewer.Title      = popupViewer.rootEl.querySelector('.viewer__title');
-
+const popupViewerEl = document.querySelector('.popup-viewer')
+const popupViewerBtnCloseEl = popupViewerEl.querySelector('.viewer__btn-close');
+const popupViewerImageEl    = popupViewerEl.querySelector('.viewer__image');
+const popupViewerTitle      = popupViewerEl.querySelector('.viewer__title');
 
 const cardContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#template-card');
 
-function showPopupProfileEditor()
+// Show
+function showPopupEditorProfile()
 {
-  popupEditor.InputLine1El.value = profile.TxtDisplayNameEl.textContent;
-  popupEditor.InputLine2El.value = profile.TxtJobEl.textContent;
-
-  showPopupEditor(editorOptions.profileEditor, popupEditor);
+  popupEditorProfileInputDisplayNameEl.value = profileTxtDisplayNameEl.textContent;
+  popupEditorProfileInputJobEl.value = profileTxtJobEl.textContent;
+  popupEditorProfileEl.classList.add('popup_opened');
+  popupEditorProfileInputDisplayNameEl.focus();
 }
 
-function showPopupImageAdder()
+function showPopupEditorImageAdder()
 {
-  popupEditor.InputLine1El.value = '';
-  popupEditor.InputLine2El.value = '';
-
-  showPopupEditor(editorOptions.imageAdder, popupEditor);
+  popupEditorImageAdderInputNameEl.value = '';
+  popupEditorImageAdderInputUrlEl.value = '';
+  popupEditorImageAdderEl.classList.add('popup_opened');
+  popupEditorImageAdderInputNameEl.focus();
 }
 
-function setEditorInputAttributes(inputOptions, inputElement)
+function showPopupViewer(card)
 {
-  for (let attribute in inputOptions)
+  popupViewerImageEl.setAttribute('src', card.link);
+  popupViewerImageEl.setAttribute('alt', card.name);
+  popupViewerTitle.textContent = card.name
+  popupViewerEl.classList.add('popup_opened');
+  popupViewerBtnCloseEl.focus();
+}
+
+// Hide, universal
+function closePopup()
+{
+  popupEditorImageAdderEl.classList.remove('popup_opened');
+  popupViewerEl.classList.remove('popup_opened');
+  popupEditorProfileEl.classList.remove('popup_opened');
+}
+
+// Process form
+function sumbitForm(event)
+{
+  switch (event.target)
   {
-    if (null === inputOptions[attribute])
-    {
-      inputElement.removeAttribute(attribute);
-    }
-    else
-    {
-      inputElement.setAttribute(attribute, inputOptions[attribute]);
-    }
+    case popupEditorImageAdderFormEl:
+      addCard({
+        link: popupEditorImageAdderInputUrlEl.value,
+        name: popupEditorImageAdderInputNameEl.value
+      });
+      break;
+    case popupEditorProfileFormEl:
+      profileTxtDisplayNameEl.textContent = popupEditorProfileInputDisplayNameEl.value;
+      profileTxtJobEl.textContent = popupEditorProfileInputJobEl.value;
+      break;
   }
 }
 
-function showPopupEditor(editorOptions, editor)
-{
-  setEditorInputAttributes(editorOptions.InputLine1Options, editor.InputLine1El)
-  setEditorInputAttributes(editorOptions.InputLine2Options, editor.InputLine2El)
-
-  editor.EditorTypeEl.value = editorOptions.editorType;
-  editor.FormTitleEl.textContent = editorOptions.editorTitle;
-  editor.rootEl.classList.add('popup_opened');
-  editor.InputLine1El.focus();
-}
-
-function closePopupEditor(doSave)
-{
-  if (doSave)
-  {
-    switch (popupEditor.EditorTypeEl.value)
-    {
-      case editorOptions.profileEditor.editorType:
-        profile.TxtDisplayNameEl.textContent = popupEditor.InputLine1El.value.trim();
-        profile.TxtJobEl.textContent = popupEditor.InputLine2El.value.trim();
-        break;
-      case editorOptions.imageAdder.editorType:
-        addCard({
-          name: popupEditor.InputLine1El.value.trim(),
-          link: popupEditor.InputLine2El.value.trim()
-        }, cardTemplate, cardContainer, toggleCardLike, removeCard, showPopupImageViewer);
-        break;
-      default:
-        console.error(`Unexpected editor type: [${popupEditor.EditorTypeEl.value}]`);
-    }
-  }
-  popupEditor.rootEl.classList.remove('popup_opened');
-}
-
-function showPopupImageViewer(evt)
-{
-  const card = evt.target.closest('.card');
-  popupViewer.ImageEl.setAttribute('src', card.querySelector('.card__image').src)
-  popupViewer.Title.textContent = card.querySelector('.card__caption').textContent;
-  popupViewer.ImageEl.setAttribute('alt', popupViewer.Title.textContent);
-  popupViewer.rootEl.classList.add('popup_opened')
-}
-
-function closePopupImageViewer(evt)
-{
-  popupViewer.rootEl.classList.remove('popup_opened')
-}
+// Cards
 
 function toggleCardLike(evt)
 {
@@ -177,25 +116,41 @@ function removeCard(evt)
   evt.target.closest('.card').remove();
 }
 
-function addCard(card = {link: 'images/card__image_noimage.png'}, cardTemplate, cardContainer, likeCb, removeCb, fullViewCb)
+function addCard(card = {link: 'images/card__image_noimage.png'})
 {
   const cardElement = cardTemplate.content.cloneNode(true);
   const cardImageElement = cardElement.querySelector('.card__image');
   cardImageElement.setAttribute('src', card.link);
   cardImageElement.setAttribute('alt', card.name);
+  cardImageElement.addEventListener('click', function(){showPopupViewer(card);});
   cardElement.querySelector('.card__caption').textContent = card.name;
-  cardElement.querySelector('.card__btn-like').addEventListener('click', likeCb);
-  cardElement.querySelector('.card__btn-remove').addEventListener('click', removeCb);
-  cardElement.querySelector('.card__image').addEventListener('click', fullViewCb);
+  cardElement.querySelector('.card__btn-like').addEventListener('click', toggleCardLike);
+  cardElement.querySelector('.card__btn-remove').addEventListener('click', removeCard);
   cardContainer.prepend(cardElement);
 }
 
-profile.BtnEditEl.addEventListener('click', showPopupProfileEditor);
-profile.BtnAddCardEl.addEventListener('click', showPopupImageAdder);
-popupEditor.FormEl.addEventListener('submit', function(evt) {evt.preventDefault(); closePopupEditor(true)});
-popupEditor.BtnCloseEl.addEventListener('click', function() {closePopupEditor(false)});
-popupViewer.BtnCloseEl.addEventListener('click', closePopupImageViewer);
+// Event Listeners
 
+profileBtnEditEl.addEventListener('click',showPopupEditorProfile);
+profileBtnAddCardEl.addEventListener('click',showPopupEditorImageAdder);
 
-initialCards.forEach(x => addCard(x, cardTemplate, cardContainer, toggleCardLike, removeCard, showPopupImageViewer));
+popupViewerBtnCloseEl.addEventListener('click', closePopup);
+popupEditorProfileBtnCloseEl.addEventListener('click', closePopup);
+popupEditorImageAdderBtnCloseEl.addEventListener('click', closePopup);
+
+popupEditorProfileFormEl.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  sumbitForm(evt);
+  closePopup();
+});
+
+popupEditorImageAdderFormEl.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  sumbitForm(evt);
+  closePopup();
+});
+
+// Init cards
+
+initialCards.forEach(card => addCard(card));
 
