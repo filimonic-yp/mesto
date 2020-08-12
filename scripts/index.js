@@ -73,7 +73,7 @@ function showPopupViewer(card)
 {
   popupViewerImageEl.setAttribute('src', card.link);
   popupViewerImageEl.setAttribute('alt', card.name);
-  popupViewerTitle.textContent = card.name
+  popupViewerTitle.textContent = card.name;
   popupViewerEl.classList.add('popup_opened');
   popupViewerBtnCloseEl.focus();
 }
