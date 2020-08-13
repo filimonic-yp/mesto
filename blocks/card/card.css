@@ -17,7 +17,7 @@
     "image image   image    image   "
     ".     caption btn-like btn-like";
   grid-template-columns: 21px 1fr 21px 21px;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 282px auto;
   background-color: white;
   border-radius: 4%;
   overflow: hidden;

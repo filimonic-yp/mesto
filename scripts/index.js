@@ -52,12 +52,25 @@ const popupViewerTitle      = popupViewerEl.querySelector('.viewer__title');
 const cardContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#template-card');
 
+// Helpers
+
+function showPopupHelper(popupEl)
+{
+  popupEl.classList.add('popup_opened');
+}
+
+function closePopupHelper(popupEl)
+{
+  popupEl.classList.remove('popup_opened');
+}
+
+
 // Show
 function showPopupEditorProfile()
 {
   popupEditorProfileInputDisplayNameEl.value = profileTxtDisplayNameEl.textContent;
   popupEditorProfileInputJobEl.value = profileTxtJobEl.textContent;
-  popupEditorProfileEl.classList.add('popup_opened');
+  showPopupHelper(popupEditorProfileEl);
   popupEditorProfileInputDisplayNameEl.focus();
 }
 
@@ -65,43 +78,41 @@ function showPopupEditorImageAdder()
 {
   popupEditorImageAdderInputNameEl.value = '';
   popupEditorImageAdderInputUrlEl.value = '';
-  popupEditorImageAdderEl.classList.add('popup_opened');
+  showPopupHelper(popupEditorImageAdderEl);
   popupEditorImageAdderInputNameEl.focus();
 }
 
-function showPopupViewer(card)
+function showPopupImageViewer(caption, image)
 {
-  popupViewerImageEl.setAttribute('src', card.link);
-  popupViewerImageEl.setAttribute('alt', card.name);
-  popupViewerTitle.textContent = card.name;
-  popupViewerEl.classList.add('popup_opened');
+  popupViewerImageEl.setAttribute('src', image);
+  popupViewerImageEl.setAttribute('alt', caption);
+  popupViewerTitle.textContent = caption;
+  showPopupHelper(popupViewerEl);
   popupViewerBtnCloseEl.focus();
 }
 
 // Hide, universal
 function closePopup()
 {
-  popupEditorImageAdderEl.classList.remove('popup_opened');
-  popupViewerEl.classList.remove('popup_opened');
-  popupEditorProfileEl.classList.remove('popup_opened');
+  closePopupHelper(popupEditorImageAdderEl);
+  closePopupHelper(popupViewerEl);
+  closePopupHelper(popupEditorProfileEl);
 }
 
 // Process form
-function sumbitForm(event)
+
+function sumbitFormImageAdder()
 {
-  switch (event.target)
-  {
-    case popupEditorImageAdderFormEl:
-      addCard({
-        link: popupEditorImageAdderInputUrlEl.value,
-        name: popupEditorImageAdderInputNameEl.value
-      });
-      break;
-    case popupEditorProfileFormEl:
-      profileTxtDisplayNameEl.textContent = popupEditorProfileInputDisplayNameEl.value;
-      profileTxtJobEl.textContent = popupEditorProfileInputJobEl.value;
-      break;
-  }
+  addCard({
+    link: popupEditorImageAdderInputUrlEl.value,
+    name: popupEditorImageAdderInputNameEl.value
+  });
+}
+
+function sumbitFormProfileEditor()
+{
+  profileTxtDisplayNameEl.textContent = popupEditorProfileInputDisplayNameEl.value;
+  profileTxtJobEl.textContent = popupEditorProfileInputJobEl.value;
 }
 
 // Cards
@@ -116,17 +127,41 @@ function removeCard(evt)
   evt.target.closest('.card').remove();
 }
 
-function addCard(card)
+function createCardWithImageElement(card, imageClickCb, likeClickCb, removeClickCb)
 {
   const cardElement = cardTemplate.content.cloneNode(true);
   const cardImageElement = cardElement.querySelector('.card__image');
+  cardImageElement.addEventListener('click', imageClickCb);
   cardImageElement.setAttribute('src', card.link);
   cardImageElement.setAttribute('alt', card.name);
-  cardImageElement.addEventListener('click', function(){showPopupViewer(card);});
+  cardElement.querySelector('.card__btn-like').addEventListener('click', likeClickCb);
+  cardElement.querySelector('.card__btn-remove').addEventListener('click', removeClickCb);
   cardElement.querySelector('.card__caption').textContent = card.name;
-  cardElement.querySelector('.card__btn-like').addEventListener('click', toggleCardLike);
-  cardElement.querySelector('.card__btn-remove').addEventListener('click', removeCard);
+  return cardElement;
+}
+
+function addCardToCardContainer(cardElement)
+{
   cardContainer.prepend(cardElement);
+}
+
+// Когда потребуется вставлять другой тип карточек,
+// то в этой функции можно будет делать селектор между createCardWith(Image)Element и createCardWith(Video)Element
+// на основе, например, полей card.
+function addCard(card)
+{
+  addCardToCardContainer(
+      createCardWithImageElement(
+        card,
+        function(){showPopupImageViewer(card.name, card.link);},
+        toggleCardLike,
+        removeCard));
+}
+
+// Initial cards
+function addInitialCards()
+{
+  initialCards.forEach(card => addCard(card));
 }
 
 // Event Listeners
@@ -140,17 +175,15 @@ popupEditorImageAdderBtnCloseEl.addEventListener('click', closePopup);
 
 popupEditorProfileFormEl.addEventListener('submit', function(evt) {
   evt.preventDefault();
-  sumbitForm(evt);
+  sumbitFormProfileEditor();
   closePopup();
 });
 
 popupEditorImageAdderFormEl.addEventListener('submit', function(evt) {
   evt.preventDefault();
-  sumbitForm(evt);
+  sumbitFormImageAdder();
   closePopup();
 });
 
-// Init cards
 
-initialCards.forEach(card => addCard(card));
-
+addInitialCards();
