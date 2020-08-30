@@ -70,14 +70,15 @@ function showPopupEditorProfile()
 {
   popupEditorProfileInputDisplayNameEl.value = profileTxtDisplayNameEl.textContent;
   popupEditorProfileInputJobEl.value = profileTxtJobEl.textContent;
+  popupEditorProfileFormEl.dispatchEvent(new Event('afterReset'));
   showPopupHelper(popupEditorProfileEl);
   popupEditorProfileInputDisplayNameEl.focus();
 }
 
 function showPopupEditorImageAdder()
 {
-  popupEditorImageAdderInputNameEl.value = '';
-  popupEditorImageAdderInputUrlEl.value = '';
+  popupEditorImageAdderFormEl.reset();
+  popupEditorImageAdderFormEl.dispatchEvent(new Event('afterReset'));
   showPopupHelper(popupEditorImageAdderEl);
   popupEditorImageAdderInputNameEl.focus();
 }
@@ -97,6 +98,12 @@ function closePopup()
   closePopupHelper(popupEditorImageAdderEl);
   closePopupHelper(popupViewerEl);
   closePopupHelper(popupEditorProfileEl);
+}
+
+function closePopupIfClickedOnElement(element1, element2)
+{
+
+  if (element1 === element2) closePopup()
 }
 
 // Process form
@@ -169,21 +176,34 @@ function addInitialCards()
 profileBtnEditEl.addEventListener('click',showPopupEditorProfile);
 profileBtnAddCardEl.addEventListener('click',showPopupEditorImageAdder);
 
-popupViewerBtnCloseEl.addEventListener('click', closePopup);
-popupEditorProfileBtnCloseEl.addEventListener('click', closePopup);
-popupEditorImageAdderBtnCloseEl.addEventListener('click', closePopup);
+// Add close for popup overlays and close buttons
+[popupViewerBtnCloseEl, popupEditorProfileBtnCloseEl, popupEditorImageAdderBtnCloseEl,
+  popupViewerEl, popupEditorProfileEl, popupEditorImageAdderEl].forEach(element => {
+    // Why MouseDown, not Click?
+    // Because when you select text text input using mouse, and release mouse outside editor div,
+    // browser generates click on overlay.
+    element.addEventListener('mousedown', evt => {
+      closePopupIfClickedOnElement(element, evt.target)})
 
-popupEditorProfileFormEl.addEventListener('submit', function(evt) {
+  });
+
+// Add close popup on Escabe button press
+document.addEventListener('keyup', evt => { if (evt.key === 'Escape') closePopup() } )
+
+// enableSingleFormValidation(popupEditorProfileFormEl);
+// enableSingleFormValidation(popupEditorImageAdderFormEl);
+
+
+popupEditorProfileFormEl.addEventListener('submit',function(evt) {
   evt.preventDefault();
   sumbitFormProfileEditor();
   closePopup();
 });
 
-popupEditorImageAdderFormEl.addEventListener('submit', function(evt) {
+popupEditorImageAdderFormEl.addEventListener('submit',function(evt) {
   evt.preventDefault();
   sumbitFormImageAdder();
   closePopup();
 });
-
 
 addInitialCards();

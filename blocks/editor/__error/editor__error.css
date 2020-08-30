@@ -1,0 +1,11 @@
+@import url(_hidden/editor__error_hidden.css);
+
+.editor__error
+{
+  font-size: 12px;
+  line-height: 1;
+  color: #F00;
+  padding-top: 5px;
+  display: block;
+  min-height: 12px;
+}

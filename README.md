@@ -10,10 +10,9 @@
 
 ### Технологии
 
-* [Макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+* Figma
 * Картинки из макета, оптимизированы в [TinyPNG](https://tinypng.com/)
 * Javascript
-* Normalize.css
 * CSS
 * BEM
 * HTML5

@@ -1,11 +1,19 @@
 .editor__input{
+  outline: none;
   display: block;
   width: 100%;
   border: none;
   border-bottom: 1px solid rgba(0,0,0,.2);
   font-size: 14px;
   line-height: 17px;
-  margin-top: 30px;
+  margin-top: 13px;
   padding: 0;
   padding-bottom: 17px;
+  transition: border-bottom-color .4s linear; ;
 }
+
+
+ .editor__input_invalid{
+  border-bottom: 1px solid #F00
+}
+

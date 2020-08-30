@@ -35,10 +35,12 @@
 
     <div class="popup popup-editor popup-editor_profile">
       <div class="popup__editor-container">
-        <form class="editor" name="editor">
+        <form class="editor" name="editor_profile"  novalidate>
           <p class="editor__title">Редактировать профиль</p>
-          <input class="editor__input" type="text" autocomplete="name" name="display-name" required pattern="^.*[^\s].*$" >
-          <input class="editor__input" type="text" name="job" placeholder="Род занятий">
+          <input class="editor__input" type="text" autocomplete="name" data-error-element-id="editor_profile__display-name-error" name="display-name" required maxlength="40" minlength="2">
+          <span class="editor__error editor__error_hidden" id="editor_profile__display-name-error"> </span>
+          <input class="editor__input" type="text" name="job" data-error-element-id="editor_profile__job-error" placeholder="Род занятий" required maxlength="200" minlength="2">
+          <span class="editor__error editor__error_hidden" id="editor_profile__job-error"> </span>
           <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-info">Сохранить</button>
           <button class="editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         </form>
@@ -47,10 +49,12 @@
 
     <div class="popup popup-editor popup-editor_image-adder">
       <div class="popup__editor-container">
-        <form class="editor" name="editor" autocomplete="off">
+        <form class="editor" name="editor_image-adder" autocomplete="off" novalidate>
           <p class="editor__title">Новое место</p>
-          <input class="editor__input" type="text" name="display-name" placeholder="Название" required>
-          <input class="editor__input" type="url" name="image-url" required placeholder="Ссылка на картинку">
+          <input class="editor__input" type="text" name="display-name" data-error-element-id="editor_image-adder__display-name-error" placeholder="Название" required maxlength="30" minlength="1">
+          <span class="editor__error editor__error_hidden" id="editor_image-adder__display-name-error"> </span>
+          <input class="editor__input" type="url" name="image-url" data-error-element-id="editor_image-adder__image-url-error" required placeholder="Ссылка на картинку">
+          <span class="editor__error editor__error_hidden" id="editor_image-adder__image-url-error"> </span>
           <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-info">Создать</button>
           <button class="editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         </form>
@@ -79,6 +83,7 @@
       <button class="card__btn-remove hover-breathing hover-breathing_deep" type="button"></button>
     </li>
   </template>
+  <script src="scripts/validate.js"></script>
   <script src="scripts/index.js"></script>
 </body>
 </html>
