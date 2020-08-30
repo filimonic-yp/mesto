@@ -54,13 +54,21 @@ const cardTemplate = document.querySelector('#template-card');
 
 // Helpers
 
+function handlePopupKeypress(evt)
+{
+  if (evt.key === 'Escape') closePopup();
+}
+
 function showPopupHelper(popupEl)
 {
+  // Add close popup on Escabe button press
+  document.addEventListener('keyup', handlePopupKeypress)
   popupEl.classList.add('popup_opened');
 }
 
 function closePopupHelper(popupEl)
 {
+  document.removeEventListener('keyup', handlePopupKeypress)
   popupEl.classList.remove('popup_opened');
 }
 
@@ -187,8 +195,7 @@ profileBtnAddCardEl.addEventListener('click',showPopupEditorImageAdder);
 
   });
 
-// Add close popup on Escabe button press
-document.addEventListener('keyup', evt => { if (evt.key === 'Escape') closePopup() } )
+
 
 // enableSingleFormValidation(popupEditorProfileFormEl);
 // enableSingleFormValidation(popupEditorImageAdderFormEl);
