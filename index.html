@@ -37,9 +37,9 @@
       <div class="popup__editor-container">
         <form class="editor" name="editor_profile"  novalidate>
           <p class="editor__title">Редактировать профиль</p>
-          <input class="editor__input editor__input_text" type="text" autocomplete="name" data-error-element-id="editor_profile__display-name-error" name="display-name" required maxlength="40" minlength="2">
+          <input class="editor__input editor__input_display-name" type="text" autocomplete="name" data-error-element-id="editor_profile__display-name-error" name="display-name" required maxlength="40" minlength="2">
           <span class="editor__error editor__error_hidden" id="editor_profile__display-name-error"> </span>
-          <input class="editor__input editor__input_text" type="text" name="job" data-error-element-id="editor_profile__job-error" placeholder="Род занятий" required maxlength="200" minlength="2">
+          <input class="editor__input editor__input_job" type="text" name="job" data-error-element-id="editor_profile__job-error" placeholder="Род занятий" required maxlength="200" minlength="2">
           <span class="editor__error editor__error_hidden" id="editor_profile__job-error"> </span>
           <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-info">Сохранить</button>
           <button class="editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
@@ -51,7 +51,7 @@
       <div class="popup__editor-container">
         <form class="editor" name="editor_image-adder" autocomplete="off" novalidate>
           <p class="editor__title">Новое место</p>
-          <input class="editor__input editor__input_text" type="text" name="display-name" data-error-element-id="editor_image-adder__display-name-error" placeholder="Название" required maxlength="30" minlength="1">
+          <input class="editor__input editor__input_display-name" type="text" name="display-name" data-error-element-id="editor_image-adder__display-name-error" placeholder="Название" required maxlength="30" minlength="1">
           <span class="editor__error editor__error_hidden" id="editor_image-adder__display-name-error"> </span>
           <input class="editor__input editor__input_url" type="url" name="image-url" data-error-element-id="editor_image-adder__image-url-error" required placeholder="Ссылка на картинку">
           <span class="editor__error editor__error_hidden" id="editor_image-adder__image-url-error"> </span>
@@ -83,6 +83,7 @@
       <button class="card__btn-remove hover-breathing hover-breathing_deep" type="button"></button>
     </li>
   </template>
+  <script src="scripts/popup.js"></script>
   <script src="scripts/initial-cards.js"></script>
   <script src="scripts/cards.js"></script>
   <script src="scripts/validate.js"></script>

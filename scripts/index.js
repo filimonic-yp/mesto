@@ -11,141 +11,150 @@
 */
 
 
-
 const profile = document.querySelector('.profile');
 const profileTextDisplayName = profile.querySelector('.profile__display-name');
 const profileTextJob = profile.querySelector('.profile__job');
 const buttonEditProfile = profile.querySelector('.profile__btn-edit');
 const buttonAddCard = profile.querySelector('.profile__btn-add');
 
-const profileEditorPopup = document.querySelector('.popup-editor_profile');
-const profileEditorDisplayNameInput = profileEditorPopup.querySelector('.editor__input[name="display-name"]');
-const profileEditorJobInput = profileEditorPopup.querySelector('.editor__input[name="job"]');
-const profileEditorCloseButton = profileEditorPopup.querySelector('.editor__btn-close');
-const profileEditorForm = profileEditorPopup.querySelector('.editor');
-
-const imageAdderPopup = document.querySelector('.popup-editor_image-adder');
-const imageAdderNameInput = imageAdderPopup.querySelector('.editor__input[name="display-name"]');
-const imageAdderUrlInput = imageAdderPopup.querySelector('.editor__input[name="image-url"]');
-const imageAdderCloseButton = imageAdderPopup.querySelector('.editor__btn-close');
-const imageAdderForm = imageAdderPopup.querySelector('.editor');
-
-const imageViewerPopup = document.querySelector('.popup-viewer');
-const imageViewerCloseButton = imageViewerPopup.querySelector('.viewer__btn-close');
-const imageViewerPicture = imageViewerPopup.querySelector('.viewer__image');
-const imageViewerTitle = imageViewerPopup.querySelector('.viewer__title');
-
 const cardContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#template-card');
 
-// Keep current opened popup to remove event listeners.
-let currentOpenedPopup = undefined;
-let currentOpenedPopupCloseButton = undefined;
 
+// ==============
+// Profile Editor
 
-function closePopupByEsc(evt)
+function onPrepareProfileEditor(inputs)
 {
-  if (evt.key === 'Escape') { closeCurrentPopup(); }
+  inputs.displayName.value = profileTextDisplayName.textContent;
+  inputs.job.value = profileTextJob.textContent;
 }
 
-function closePopupByMouseDown(evt)
+function onSubmitProfileEditor(inputs)
 {
-  if (evt.target === evt.currentTarget) { closeCurrentPopup(); }
+  profileTextDisplayName.textContent = inputs.displayName.value;
+  profileTextJob.textContent = inputs.job.value;
 }
 
-function showPopup(popup, closeButton)
+const profileEditorPopup = preparePopup(document.querySelector('.popup-editor_profile'), {
+  inputs: [
+    {
+      selector: '.editor__input_display-name',
+      name: 'displayName'
+    },
+    {
+      selector: '.editor__input_job',
+      name: 'job'
+    },
+  ],
+  sumbitCallback: onSubmitProfileEditor,
+  prepareCallback: onPrepareProfileEditor,
+  closeCallback:  null,
+  closeButtonSelector: '.editor__btn-close',
+  formSelector: '.editor',
+  openedClass: 'popup_opened',
+  closeByEsc: true
+})
+
+// Handle profile editor
+function openProfileEditor()
 {
-  currentOpenedPopup = popup;
-  currentOpenedPopupCloseButton = closeButton;
-  document.addEventListener('keyup', closePopupByEsc);
-  popup.addEventListener('mousedown', closePopupByMouseDown);
-  closeButton.addEventListener('mousedown', closePopupByMouseDown);
-  popup.classList.add('popup_opened');
+  profileEditorPopup.open();
 }
 
-function closePopup(popup, closeButton)
+buttonEditProfile.addEventListener('click',openProfileEditor);
+
+// ==============
+// Image adder
+
+function onPrepareImageAdder(inputs)
 {
-  currentOpenedPopup = undefined;
-  currentOpenedPopupCloseButton = undefined;
-  document.removeEventListener('keyup', closePopupByEsc);
-  popup.removeEventListener('mousedown', closePopupByMouseDown);
-  closeButton.removeEventListener('mousedown', closePopupByMouseDown);
-  popup.classList.remove('popup_opened');
+  inputs.displayName.value = '';
+  inputs.imageUrl.value = '';
 }
 
-function closeCurrentPopup()
+function onSubmitImageAdder(inputs)
 {
-  closePopup(currentOpenedPopup, currentOpenedPopupCloseButton);
+  const card = {
+    name: inputs.displayName.value,
+    link: inputs.imageUrl.value,
+  }
+  addCard(card, cardTemplate, cardContainer, onCardImageClick.bind(null, card))
 }
 
-// Show
-function showPopupEditorProfile()
+const imageAdderPopup = preparePopup(document.querySelector('.popup-editor_image-adder'), {
+  inputs: [
+    {
+      selector: '.editor__input_display-name',
+      name: 'displayName'
+    },
+    {
+      selector: '.editor__input_url',
+      name: 'imageUrl'
+    },
+  ],
+  sumbitCallback: onSubmitImageAdder,
+  prepareCallback: onPrepareImageAdder,
+  closeCallback:  null,
+  closeButtonSelector: '.editor__btn-close',
+  formSelector: '.editor',
+  openedClass: 'popup_opened',
+  closeByEsc: true
+})
+
+// Handle profile editor
+function openImageAdder()
 {
-  profileEditorDisplayNameInput.value = profileTextDisplayName.textContent;
-  profileEditorJobInput.value = profileTextJob.textContent;
-  profileEditorForm.dispatchEvent(new Event('afterReset'));
-  showPopup(profileEditorPopup, profileEditorCloseButton);
-  profileEditorDisplayNameInput.focus();
+  imageAdderPopup.open();
 }
 
-function showPopupEditorImageAdder()
+buttonAddCard.addEventListener('click',openImageAdder);
+
+// CARD VIEWER
+
+function onPrepareImageViewer(inputs, card)
 {
-  imageAdderForm.reset();
-  imageAdderForm.dispatchEvent(new Event('afterReset'));
-  showPopup(imageAdderPopup, profileEditorCloseButton);
-  imageAdderNameInput.focus();
+  inputs.image.setAttribute('src', card.link);
+  inputs.image.setAttribute('alt', card.name);
+  inputs.image.textContent = card.name;
 }
 
-function showPopupImageViewer(card)
+const imageViewerPopup = preparePopup(document.querySelector('.popup-viewer'), {
+  inputs: [
+    {
+      selector: '.viewer__image',
+      name: 'image'
+    },
+    {
+      selector: '.viewer__title',
+      name: 'title'
+    },
+  ],
+  sumbitCallback: null,
+  prepareCallback: onPrepareImageViewer,
+  closeCallback:  null,
+  closeButtonSelector: '.viewer__btn-close',
+  formSelector: null,
+  openedClass: 'popup_opened',
+  closeByEsc: true
+})
+
+// Card viever callback
+function onCardImageClick(card)
 {
-  imageViewerPicture.setAttribute('src', card.link);
-  imageViewerPicture.setAttribute('alt', card.name);
-  imageViewerTitle.textContent = card.name;
-  showPopup(imageViewerPopup, imageViewerCloseButton);
-  imageViewerCloseButton.focus();
+  imageViewerPopup.open(card);
 }
 
-// Form, submitters
-function sumbitFormImageAdder()
+//=============
+// CARDS
+
+function addInitialCards(cardTemplate, cardContainer, onCardImageClick)
 {
-  addCard({
-    link: imageAdderUrlInput.value,
-    name: imageAdderNameInput.value
-  },
-  cardTemplate,
-  cardContainer,
-  showPopupImageViewer
-  );
+  initialCards.forEach(card => addCard(card, cardTemplate, cardContainer, onCardImageClick.bind(null, card)));
 }
 
-function sumbitFormProfileEditor()
-{
-  profileTextDisplayName.textContent = profileEditorDisplayNameInput.value;
-  profileTextJob.textContent = profileEditorJobInput.value;
-}
-
-profileEditorForm.addEventListener('submit',function(evt) {
-  evt.preventDefault();
-  sumbitFormProfileEditor();
-  closeCurrentPopup();
-});
-
-imageAdderForm.addEventListener('submit',function(evt) {
-  evt.preventDefault();
-  sumbitFormImageAdder();
-  closeCurrentPopup();
-});
-
-// Initial cards
-
-function addInitialCards(cardTemplate, cardContainer, cardImageClickCallback)
-{
-  initialCards.forEach(card => addCard(card, cardTemplate, cardContainer, cardImageClickCallback));
-}
-
-addInitialCards(cardTemplate, cardContainer, showPopupImageViewer);
+addInitialCards(cardTemplate, cardContainer, onCardImageClick);
 
 // Event Listeners
 
-buttonEditProfile.addEventListener('click',showPopupEditorProfile);
-buttonAddCard.addEventListener('click',showPopupEditorImageAdder);
+
