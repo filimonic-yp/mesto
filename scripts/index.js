@@ -1,216 +1,151 @@
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+/*
+  > Для полей ввода обоих форм, присуствующих в проекте, используются один и те же классы. Это некорректно.
+  > Следует исправить классы таким образом, чтобы по названию было понятно какой именно инпут мы имеем.
+  Добавил классы соответствующие типам инпутов.
+
+  > Функция должна быть сначала объявлена и только потом её можно будет использовать.
+  > В коде есть места где это не так. Следует исправить.
+  Не нашел таких мест.
 
 
-const profileEl               = document.querySelector('.profile')
-const profileTxtDisplayNameEl = profileEl.querySelector('.profile__display-name');
-const profileTxtJobEl         = profileEl.querySelector('.profile__job');
-const profileBtnEditEl        = profileEl.querySelector('.profile__btn-edit');
-const profileBtnAddCardEl     = profileEl.querySelector('.profile__btn-add');
+*/
 
-const popupEditorProfileEl                 = document.querySelector('.popup-editor_profile');
-const popupEditorProfileInputDisplayNameEl = popupEditorProfileEl.querySelector('.editor__input[name="display-name"]');
-const popupEditorProfileInputJobEl         = popupEditorProfileEl.querySelector('.editor__input[name="job"]');
-const popupEditorProfileBtnCloseEl         = popupEditorProfileEl.querySelector('.editor__btn-close');
-const popupEditorProfileFormEl             = popupEditorProfileEl.querySelector('.editor');
 
-const popupEditorImageAdderEl          = document.querySelector('.popup-editor_image-adder');
-const popupEditorImageAdderInputNameEl = popupEditorImageAdderEl.querySelector('.editor__input[name="display-name"]');
-const popupEditorImageAdderInputUrlEl  = popupEditorImageAdderEl.querySelector('.editor__input[name="image-url"]');
-const popupEditorImageAdderBtnCloseEl  = popupEditorImageAdderEl.querySelector('.editor__btn-close');
-const popupEditorImageAdderFormEl      = popupEditorImageAdderEl.querySelector('.editor');
 
-const popupViewerEl         = document.querySelector('.popup-viewer')
-const popupViewerBtnCloseEl = popupViewerEl.querySelector('.viewer__btn-close');
-const popupViewerImageEl    = popupViewerEl.querySelector('.viewer__image');
-const popupViewerTitle      = popupViewerEl.querySelector('.viewer__title');
+const profile = document.querySelector('.profile');
+const profileTextDisplayName = profile.querySelector('.profile__display-name');
+const profileTextJob = profile.querySelector('.profile__job');
+const buttonEditProfile = profile.querySelector('.profile__btn-edit');
+const buttonAddCard = profile.querySelector('.profile__btn-add');
+
+const profileEditorPopup = document.querySelector('.popup-editor_profile');
+const profileEditorDisplayNameInput = profileEditorPopup.querySelector('.editor__input[name="display-name"]');
+const profileEditorJobInput = profileEditorPopup.querySelector('.editor__input[name="job"]');
+const profileEditorCloseButton = profileEditorPopup.querySelector('.editor__btn-close');
+const profileEditorForm = profileEditorPopup.querySelector('.editor');
+
+const imageAdderPopup = document.querySelector('.popup-editor_image-adder');
+const imageAdderNameInput = imageAdderPopup.querySelector('.editor__input[name="display-name"]');
+const imageAdderUrlInput = imageAdderPopup.querySelector('.editor__input[name="image-url"]');
+const imageAdderCloseButton = imageAdderPopup.querySelector('.editor__btn-close');
+const imageAdderForm = imageAdderPopup.querySelector('.editor');
+
+const imageViewerPopup = document.querySelector('.popup-viewer');
+const imageViewerCloseButton = imageViewerPopup.querySelector('.viewer__btn-close');
+const imageViewerPicture = imageViewerPopup.querySelector('.viewer__image');
+const imageViewerTitle = imageViewerPopup.querySelector('.viewer__title');
 
 const cardContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#template-card');
 
-// Helpers
+// Keep current opened popup to remove event listeners.
+let currentOpenedPopup = undefined;
+let currentOpenedPopupCloseButton = undefined;
 
-function handlePopupKeypress(evt)
+
+function closePopupByEsc(evt)
 {
-  if (evt.key === 'Escape') closePopup();
+  if (evt.key === 'Escape') { closeCurrentPopup(); }
 }
 
-function showPopupHelper(popupEl)
+function closePopupByMouseDown(evt)
 {
-  // Add close popup on Escabe button press
-  document.addEventListener('keyup', handlePopupKeypress)
-  popupEl.classList.add('popup_opened');
+  if (evt.target === evt.currentTarget) { closeCurrentPopup(); }
 }
 
-function closePopupHelper(popupEl)
+function showPopup(popup, closeButton)
 {
-  document.removeEventListener('keyup', handlePopupKeypress)
-  popupEl.classList.remove('popup_opened');
+  currentOpenedPopup = popup;
+  currentOpenedPopupCloseButton = closeButton;
+  document.addEventListener('keyup', closePopupByEsc);
+  popup.addEventListener('mousedown', closePopupByMouseDown);
+  closeButton.addEventListener('mousedown', closePopupByMouseDown);
+  popup.classList.add('popup_opened');
 }
 
+function closePopup(popup, closeButton)
+{
+  currentOpenedPopup = undefined;
+  currentOpenedPopupCloseButton = undefined;
+  document.removeEventListener('keyup', closePopupByEsc);
+  popup.removeEventListener('mousedown', closePopupByMouseDown);
+  closeButton.removeEventListener('mousedown', closePopupByMouseDown);
+  popup.classList.remove('popup_opened');
+}
+
+function closeCurrentPopup()
+{
+  closePopup(currentOpenedPopup, currentOpenedPopupCloseButton);
+}
 
 // Show
 function showPopupEditorProfile()
 {
-  popupEditorProfileInputDisplayNameEl.value = profileTxtDisplayNameEl.textContent;
-  popupEditorProfileInputJobEl.value = profileTxtJobEl.textContent;
-  popupEditorProfileFormEl.dispatchEvent(new Event('afterReset'));
-  showPopupHelper(popupEditorProfileEl);
-  popupEditorProfileInputDisplayNameEl.focus();
+  profileEditorDisplayNameInput.value = profileTextDisplayName.textContent;
+  profileEditorJobInput.value = profileTextJob.textContent;
+  profileEditorForm.dispatchEvent(new Event('afterReset'));
+  showPopup(profileEditorPopup, profileEditorCloseButton);
+  profileEditorDisplayNameInput.focus();
 }
 
 function showPopupEditorImageAdder()
 {
-  popupEditorImageAdderFormEl.reset();
-  popupEditorImageAdderFormEl.dispatchEvent(new Event('afterReset'));
-  showPopupHelper(popupEditorImageAdderEl);
-  popupEditorImageAdderInputNameEl.focus();
+  imageAdderForm.reset();
+  imageAdderForm.dispatchEvent(new Event('afterReset'));
+  showPopup(imageAdderPopup, profileEditorCloseButton);
+  imageAdderNameInput.focus();
 }
 
-function showPopupImageViewer(caption, image)
+function showPopupImageViewer(card)
 {
-  popupViewerImageEl.setAttribute('src', image);
-  popupViewerImageEl.setAttribute('alt', caption);
-  popupViewerTitle.textContent = caption;
-  showPopupHelper(popupViewerEl);
-  popupViewerBtnCloseEl.focus();
+  imageViewerPicture.setAttribute('src', card.link);
+  imageViewerPicture.setAttribute('alt', card.name);
+  imageViewerTitle.textContent = card.name;
+  showPopup(imageViewerPopup, imageViewerCloseButton);
+  imageViewerCloseButton.focus();
 }
 
-// Hide, universal
-function closePopup()
-{
-  closePopupHelper(popupEditorImageAdderEl);
-  closePopupHelper(popupViewerEl);
-  closePopupHelper(popupEditorProfileEl);
-}
-
-function closePopupIfClickedOnElement(element1, element2)
-{
-
-  if (element1 === element2) closePopup()
-}
-
-// Process form
-
+// Form, submitters
 function sumbitFormImageAdder()
 {
   addCard({
-    link: popupEditorImageAdderInputUrlEl.value,
-    name: popupEditorImageAdderInputNameEl.value
-  });
+    link: imageAdderUrlInput.value,
+    name: imageAdderNameInput.value
+  },
+  cardTemplate,
+  cardContainer,
+  showPopupImageViewer
+  );
 }
 
 function sumbitFormProfileEditor()
 {
-  profileTxtDisplayNameEl.textContent = popupEditorProfileInputDisplayNameEl.value;
-  profileTxtJobEl.textContent = popupEditorProfileInputJobEl.value;
+  profileTextDisplayName.textContent = profileEditorDisplayNameInput.value;
+  profileTextJob.textContent = profileEditorJobInput.value;
 }
 
-// Cards
+profileEditorForm.addEventListener('submit',function(evt) {
+  evt.preventDefault();
+  sumbitFormProfileEditor();
+  closeCurrentPopup();
+});
 
-function toggleCardLike(evt)
-{
-  evt.target.classList.toggle('card__btn-like_liked');
-}
-
-function removeCard(evt)
-{
-  evt.target.closest('.card').remove();
-}
-
-function createCardWithImageElement(card, imageClickCb, likeClickCb, removeClickCb)
-{
-  const cardElement = cardTemplate.content.cloneNode(true);
-  const cardImageElement = cardElement.querySelector('.card__image');
-  cardImageElement.addEventListener('click', imageClickCb);
-  cardImageElement.setAttribute('src', card.link);
-  cardImageElement.setAttribute('alt', card.name);
-  cardElement.querySelector('.card__btn-like').addEventListener('click', likeClickCb);
-  cardElement.querySelector('.card__btn-remove').addEventListener('click', removeClickCb);
-  cardElement.querySelector('.card__caption').textContent = card.name;
-  return cardElement;
-}
-
-function addCardToCardContainer(cardElement)
-{
-  cardContainer.prepend(cardElement);
-}
-
-// Когда потребуется вставлять другой тип карточек,
-// то в этой функции можно будет делать селектор между createCardWith(Image)Element и createCardWith(Video)Element
-// на основе, например, полей card.
-function addCard(card)
-{
-  addCardToCardContainer(
-      createCardWithImageElement(
-        card,
-        function(){showPopupImageViewer(card.name, card.link);},
-        toggleCardLike,
-        removeCard));
-}
+imageAdderForm.addEventListener('submit',function(evt) {
+  evt.preventDefault();
+  sumbitFormImageAdder();
+  closeCurrentPopup();
+});
 
 // Initial cards
-function addInitialCards()
+
+function addInitialCards(cardTemplate, cardContainer, cardImageClickCallback)
 {
-  initialCards.forEach(card => addCard(card));
+  initialCards.forEach(card => addCard(card, cardTemplate, cardContainer, cardImageClickCallback));
 }
+
+addInitialCards(cardTemplate, cardContainer, showPopupImageViewer);
 
 // Event Listeners
 
-profileBtnEditEl.addEventListener('click',showPopupEditorProfile);
-profileBtnAddCardEl.addEventListener('click',showPopupEditorImageAdder);
-
-// Add close for popup overlays and close buttons
-[popupViewerBtnCloseEl, popupEditorProfileBtnCloseEl, popupEditorImageAdderBtnCloseEl,
-  popupViewerEl, popupEditorProfileEl, popupEditorImageAdderEl].forEach(element => {
-    // Why MouseDown, not Click?
-    // Because when you select text text input using mouse, and release mouse outside editor div,
-    // browser generates click on overlay.
-    element.addEventListener('mousedown', evt => {
-      closePopupIfClickedOnElement(element, evt.target)})
-
-  });
-
-
-
-// enableSingleFormValidation(popupEditorProfileFormEl);
-// enableSingleFormValidation(popupEditorImageAdderFormEl);
-
-
-popupEditorProfileFormEl.addEventListener('submit',function(evt) {
-  evt.preventDefault();
-  sumbitFormProfileEditor();
-  closePopup();
-});
-
-popupEditorImageAdderFormEl.addEventListener('submit',function(evt) {
-  evt.preventDefault();
-  sumbitFormImageAdder();
-  closePopup();
-});
-
-addInitialCards();
+buttonEditProfile.addEventListener('click',showPopupEditorProfile);
+buttonAddCard.addEventListener('click',showPopupEditorImageAdder);
