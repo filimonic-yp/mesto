@@ -81,12 +81,16 @@ function openPopup(popupInstance, prepareArgument)
   if(popupInstance.form)
   {
     popupInstance.form.reset();
-    popupInstance.form.dispatchEvent(new Event('afterReset'));
   }
 
   if (popupInstance.prepareCallback)
   {
     popupInstance.prepareCallback(popupInstance.inputs,  prepareArgument);
+  }
+
+  if(popupInstance.form)
+  {
+    popupInstance.form.dispatchEvent(new Event('afterReset'));
   }
 
   addPopupEventListeners(popupInstance);
