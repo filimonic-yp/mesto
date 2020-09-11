@@ -35,9 +35,9 @@ class Card
 
   _setupEventListeners()
   {
-    this._cardButtonRemove.addEventListener('click', (event) => {this._removeButtonHandler();});
-    this._cardButtonLike.addEventListener('click', () => {this._likeButtonHandler();});
-    this._cardImage.addEventListener('click', () => {this._imageClickHandler();} )
+    this._cardButtonRemove.addEventListener('click', () => this._removeButtonHandler());
+    this._cardButtonLike.addEventListener('click', () => this._likeButtonHandler());
+    this._cardImage.addEventListener('click', () => this._imageClickHandler());
   }
 
   _updateLikeButton()
