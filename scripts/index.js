@@ -1,3 +1,9 @@
+import Card from "./card.js";
+import FormValidator from "./form-validator.js";
+import initialCards from "./initial-cards.js";
+import Popup from "./popup.js";
+
+
 const profile = document.querySelector('.profile');
 const profileTextDisplayName = profile.querySelector('.profile__display-name');
 const profileTextJob = profile.querySelector('.profile__job');
@@ -5,11 +11,11 @@ const buttonEditProfile = profile.querySelector('.profile__btn-edit');
 const buttonAddCard = profile.querySelector('.profile__btn-add');
 
 const cardContainer = document.querySelector('.cards');
-const cardTemplate = document.querySelector('#template-card');
+const cardTemplate = '#template-card';
 
 
 // ==============
-// Profile Editor
+// Profile Editor Popup
 
 function onPrepareProfileEditor(inputs)
 {
@@ -23,7 +29,7 @@ function onSubmitProfileEditor(inputs)
   profileTextJob.textContent = inputs.job.value;
 }
 
-const profileEditorPopup = preparePopup(document.querySelector('.popup-editor_profile'), {
+const profileEditorPopup = new Popup(document.querySelector('.popup-editor_profile'), {
   inputs: [
     {
       selector: '.editor__input_display-name',
@@ -43,16 +49,8 @@ const profileEditorPopup = preparePopup(document.querySelector('.popup-editor_pr
   closeByEsc: true
 })
 
-// Handle profile editor
-function openProfileEditor()
-{
-  profileEditorPopup.open();
-}
-
-buttonEditProfile.addEventListener('click',openProfileEditor);
-
 // ==============
-// Image adder
+// Image adder popup
 
 function onPrepareImageAdder(inputs)
 {
@@ -66,10 +64,10 @@ function onSubmitImageAdder(inputs)
     name: inputs.displayName.value,
     link: inputs.imageUrl.value,
   }
-  addCard(card, cardTemplate, cardContainer, onCardImageClick.bind(null, card))
+  addCard(card, cardTemplate, cardContainer, cardImageClickHandler)
 }
 
-const imageAdderPopup = preparePopup(document.querySelector('.popup-editor_image-adder'), {
+const imageAdderPopup =  new Popup(document.querySelector('.popup-editor_image-adder'), {
   inputs: [
     {
       selector: '.editor__input_display-name',
@@ -89,24 +87,18 @@ const imageAdderPopup = preparePopup(document.querySelector('.popup-editor_image
   closeByEsc: true
 })
 
-// Handle profile editor
-function openImageAdder()
-{
-  imageAdderPopup.open();
-}
-
-buttonAddCard.addEventListener('click',openImageAdder);
-
-// CARD VIEWER
+// ==============
+// Image viewer popup
 
 function onPrepareImageViewer(inputs, card)
 {
+  console.log(card);
   inputs.image.setAttribute('src', card.link);
   inputs.image.setAttribute('alt', card.name);
   inputs.image.textContent = card.name;
 }
 
-const imageViewerPopup = preparePopup(document.querySelector('.popup-viewer'), {
+const imageViewerPopup =  new Popup(document.querySelector('.popup-viewer'), {
   inputs: [
     {
       selector: '.viewer__image',
@@ -126,22 +118,75 @@ const imageViewerPopup = preparePopup(document.querySelector('.popup-viewer'), {
   closeByEsc: true
 })
 
-// Card viever callback
-function onCardImageClick(card)
-{
-  imageViewerPopup.open(card);
-}
 
 //=============
 // CARDS
 
-function addInitialCards(cardTemplate, cardContainer, onCardImageClick)
+function cardImageClickHandler(card)
 {
-  initialCards.forEach(card => addCard(card, cardTemplate, cardContainer, onCardImageClick.bind(null, card)));
+  imageViewerPopup.open(card.getData());
 }
 
-addInitialCards(cardTemplate, cardContainer, onCardImageClick);
+function addCardToCardContainer(cardContainer, cardElement)
+{
+  cardContainer.prepend(cardElement);
+}
 
-// Event Listeners
+function addCard(card, cardTemplate, cardContainer, cardImageClickCallback)
+{
+  addCardToCardContainer(
+    cardContainer,
+    new Card(
+      card,
+      cardTemplate,
+      cardImageClickCallback).getElement());
+}
 
+function addInitialCards(cardTemplate, cardContainer, cardImageClickCallback)
+{
+  initialCards.forEach(card => addCard(card, cardTemplate, cardContainer, cardImageClickCallback));
+}
 
+addInitialCards(cardTemplate, cardContainer, cardImageClickHandler);
+
+//==========
+// Enable form validation
+
+function enableFormValidation(options)
+{
+  const validatedFormList = Array.from(document.querySelectorAll(options.formSelector));
+  validatedFormList.forEach(validatedForm => new FormValidator(
+    options,
+    validatedForm
+    ).enableValidation());
+}
+
+enableFormValidation({
+  formSelector: '.editor',
+  inputSelector: '.editor__input',
+  submitButtonSelector: '.editor__btn-submit',
+  inputErrorClass: 'editor__input_invalid',
+  inactiveButtonClass: 'editor__btn-submit_disabled', // Не используется в css, у нас есть прекрасный встроенный :disabled.
+  errorClass: 'editor__error_hidden',
+  inputErrorIdAttributeName: 'errorElementId',  //Зачем мне танцы с конкатенацией ID, когда я явно могу указать ID элемента-ошибки в самой разметке в data-атрибуте.
+                                                // Вдруг я хочу выводить все ошибки в одном и том же элемегнте.
+})
+
+//==========
+// Setup profile buttons
+
+// Handle profile editor
+function openProfileEditor()
+{
+  profileEditorPopup.open();
+}
+
+buttonEditProfile.addEventListener('click',openProfileEditor);
+
+// Handle image adder
+function openImageAdder()
+{
+  imageAdderPopup.open();
+}
+
+buttonAddCard.addEventListener('click',openImageAdder);

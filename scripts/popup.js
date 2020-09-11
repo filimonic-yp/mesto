@@ -20,134 +20,122 @@
 
     Методы popupInstance:
       open(arg)    : Открывает попап. Опциональный arg передается в prepareCallback
-      close(event) : закрывает коллбэк. Опциональный второй параметр KeyboardEvent для детектирования ESC-клавиши для внутренних нужд
-      submit()     : внутренний метод, срабатывает при отправке формы. Параметров нет.
 
 */
 
 
-
-
-function getInputDictionary(popup, inputOptions)
+class Popup
 {
-  if (!Array.isArray(inputOptions))
+  constructor(popup, options)
   {
-    return {};
-  }
-  inputElementsDictionary = {};
-  inputOptions.forEach((options) => (inputElementsDictionary[options.name] = popup.querySelector(options.selector)));
-  return inputElementsDictionary;
-}
+    this._popup = popup;
+    this._options = Object.assign({}, options);
+    this._form = this._popup.querySelector(this._options.formSelector);
+    this._closeButton = this._popup.querySelector(this._options.closeButtonSelector);
+    this._inputs = this._getInputDictionary(popup, this._options.inputs);
 
-function addPopupEventListeners(popupInstance)
-{
-  if (popupInstance.closeButton)
-  {
-    popupInstance.closeButton.addEventListener('mousedown', popupInstance.close);
+    this._closeBind = this._close.bind(this);
+    this._submitBind = this._submit.bind(this);
+    this._onEscapeKeyBind = this._onEscapeKey.bind(this);
   }
 
-  popupInstance.popup.addEventListener('mousedown', popupInstance.close);
-
-  if(popupInstance.form)
+  _getInputDictionary(popup, inputOptions)
   {
-    popupInstance.form.addEventListener('submit', popupInstance.submit);
-  }
-
-  if (popupInstance.closeByEsc)
-  {
-    document.addEventListener('keydown', popupInstance.onEscape);
-  }
-}
-
-function removePopupEventListeners(popupInstance)
-{
-  if (popupInstance.closeButton)
-  {
-    popupInstance.closeButton.removeEventListener('mousedown', popupInstance.close);
-  }
-
-  popupInstance.popup.removeEventListener('mousedown', popupInstance.close);
-
-  if (popupInstance.form)
-  {
-    popupInstance.form.removeEventListener('submit', popupInstance.submit);
-  }
-
-  document.removeEventListener('keydown', popupInstance.onEscape);
-}
-
-function openPopup(popupInstance, prepareArgument)
-{
-  if(popupInstance.form)
-  {
-    popupInstance.form.reset();
-  }
-
-  if (popupInstance.prepareCallback)
-  {
-    popupInstance.prepareCallback(popupInstance.inputs,  prepareArgument);
-  }
-
-  if(popupInstance.form)
-  {
-    popupInstance.form.dispatchEvent(new Event('afterReset'));
-  }
-
-  addPopupEventListeners(popupInstance);
-
-  popupInstance.popup.classList.add(popupInstance.openedClass);
-}
-
-function closePopupByEsc(popupInstance, event)
-{
-  if (event.key === 'Escape')
-  {
-    popupInstance.close();
-  }
-}
-
-function closePopup(popupInstance, event)
-{
-  if ((!event) || (event.target === popupInstance.closeButton) || (event.target === popupInstance.popup))
-  {
-    if (popupInstance.closeCallback)
+    if (!Array.isArray(inputOptions))
     {
-      popupInstance.closeCallback(popupInstance)
+      return {};
     }
-    popupInstance.popup.classList.remove(popupInstance.openedClass);
-    removePopupEventListeners(popupInstance);
+    const inputElementsDictionary = {};
+    inputOptions.forEach((options) => (inputElementsDictionary[options.name] = popup.querySelector(options.selector)));
+    return inputElementsDictionary;
+  }
 
+  _setEventListeners()
+  {
+    if (this._closeButton)
+    {
+      this._closeButton.addEventListener('mousedown', this._closeBind)
+    }
+
+    this._popup.addEventListener('mousedown', this._closeBind)
+
+    if(this._form)
+    {
+      this._form.addEventListener('submit', this._submitBind);
+    }
+
+    if (this._options.closeByEsc)
+    {
+      document.addEventListener('keydown', this._onEscapeKeyBind);
+    }
+  }
+
+  _removeEventListeners()
+  {
+    if (this._closeButton)
+    {
+      this._closeButton.removeEventListener('mousedown', this._closeBind);
+    }
+
+    this._popup.removeEventListener('mousedown', this._closeBind);
+
+    if(this._form)
+    {
+      this._form.removeEventListener('submit', this._submitBind);
+    }
+
+    document.removeEventListener('keydown', this._onEscapeKeyBind);
+  }
+
+  open(prepareArgument)
+  {
+    if(this._form)
+    {
+      this._form.reset();
+    }
+
+    if (this._options.prepareCallback)
+    {
+      this._options.prepareCallback(this._inputs, prepareArgument);
+    }
+
+    this._setEventListeners();
+
+    this._popup.classList.add(this._options.openedClass);
+  }
+
+  _onEscapeKey(event)
+  {
+    if (event.key === 'Escape')
+    {
+      this._close();
+    }
+  }
+
+  _close(event)
+  {
+    if ((!event) || (event.target === this._closeButton) || (event.target === this._popup))
+    {
+      if (this._options.closeCallback)
+      {
+        this._options.closeCallback(this);
+      }
+
+      this._popup.classList.remove(this._options.openedClass);
+      this._removeEventListeners();
+    }
+  }
+
+  _submit(event)
+  {
+    event.preventDefault();
+    if (this._options.sumbitCallback)
+    {
+      this._options.sumbitCallback(this._inputs)
+    }
+    this._close();
   }
 }
 
-function submitPopup(popupInstance, event)
-{
-  //console.log('submitPopup', arguments);
-  event.preventDefault();
-  popupInstance.sumbitCallback ? popupInstance.sumbitCallback(popupInstance.inputs) : true;
-  popupInstance.close();
-}
 
-function preparePopup(popup, options)
-{
-  const popupInstance = {
-    popup,
-    options,
-    inputs: getInputDictionary(popup, options.inputs),
-    prepareCallback: options.prepareCallback,
-    closeCallback: options.closeCallback,
-    sumbitCallback: options.sumbitCallback,
-    form: popup.querySelector(options.formSelector),
-    closeButton: popup.querySelector(options.closeButtonSelector),
-    openedClass: options.openedClass,
-    closeByEsc: options.closeByEsc === true,
-  };
-
-  popupInstance.open = openPopup.bind(null, popupInstance);
-  popupInstance.close = closePopup.bind(null, popupInstance);
-  popupInstance.submit = submitPopup.bind(null, popupInstance);
-  popupInstance.onEscape = closePopupByEsc.bind(null, popupInstance);
-  return popupInstance;
-}
-
-
+export default Popup
