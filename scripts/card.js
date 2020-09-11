@@ -4,7 +4,7 @@
  * Create Mesto Card instance
  * @param {object} cardData Card infromation with `name` and `link` attributes
  * @param {string} cardTemplateSelector selector string for card template
- * @param {string} openCallback called when user clicks image
+ * @param {function} openCallback called when user clicks image
 */
 class Card
 {
