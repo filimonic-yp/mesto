@@ -13,13 +13,23 @@ class FormValidator
 
     this._updateSubmitButtonState();
 
+    this._setInputEventListeners();
+    this._setFormEventListeners();
+
+  }
+
+  _setInputEventListeners()
+  {
     // Добавляем слушателей на инпуты
     this._formValidatedInputs.forEach(validatedElement => validatedElement.addEventListener('input', (evt) =>
     {
       this._validateElement(evt.target);
       this._updateSubmitButtonState();
     }));
+  }
 
+  _setFormEventListeners()
+  {
     // По событию ресета формы мы должны скрыть все ошибки и выполнить ревалидацию статуса кнопки.
     // Но предполагается что сразу после ресета, скрипт может забить данные в форму.
     // Так что скрытие и ревалидацию статуса кнопки мы проводим после того, как итерация Js выполнится полностью ( благодяря setTimeout)
