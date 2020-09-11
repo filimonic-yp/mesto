@@ -92,7 +92,7 @@ const imageAdderPopup =  new Popup(document.querySelector('.popup-editor_image-a
 
 function onPrepareImageViewer(inputs, card)
 {
-  console.log(card);
+  //console.log(card);
   inputs.image.setAttribute('src', card.link);
   inputs.image.setAttribute('alt', card.name);
   inputs.image.textContent = card.name;
