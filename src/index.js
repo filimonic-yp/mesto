@@ -31,7 +31,7 @@ function createCardElement(cardData)
 {
   const clickCallback = handleCardImageClick.bind(null, cardData);
   const card = new Card(cardData, cardTemplateSelector, clickCallback);
-  return card.getElement()
+  return card.getElement();
 }
 
 const cardSection = new Section(
@@ -50,7 +50,7 @@ const popupAddCard = new PopupWithForm('.popup-editor_image-adder', (elements) =
   const cardData = {
     name: elements['display-name'],
     link: elements['image-url']
-  }
+  };
   cardSection.addItemFirst(createCardElement(cardData));
 });
 
@@ -59,7 +59,7 @@ const popupEditUser = new PopupWithForm('.popup-editor_profile', (elements) => {
   userInfo.setUserInfo({
     name: elements['display-name'],
     job: elements['job']
-    })
+    });
   });
 
 // Validation
@@ -88,10 +88,10 @@ enableFormValidation({
 
 buttonAddCard.addEventListener('click',() => popupAddCard.open());
 buttonEditProfile.addEventListener('click',() => {
-  const info = userInfo.getUserInfo()
+  const info = userInfo.getUserInfo();
   popupEditUser.open({
     'display-name' : info.name,
     'job' : info.job,
-  })
+  });
 });
 
