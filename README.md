@@ -12,7 +12,7 @@
 
 * Figma
 * Картинки из макета, оптимизированы в [TinyPNG](https://tinypng.com/)
-* Javascript
+* Javascript + Class
 * CSS
 * BEM
 * HTML5
