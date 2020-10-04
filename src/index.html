@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page">
@@ -42,7 +41,7 @@
           <input class="editor__input editor__input_job" type="text" name="job" data-error-element-id="editor_profile__job-error" placeholder="Род занятий" required maxlength="200" minlength="2">
           <span class="editor__error editor__error_hidden" id="editor_profile__job-error"> </span>
           <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-info">Сохранить</button>
-          <button class="editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
+          <button class="popup__btn-close editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         </form>
       </div>
     </div>
@@ -56,14 +55,14 @@
           <input class="editor__input editor__input_url" type="url" name="image-url" data-error-element-id="editor_image-adder__image-url-error" required placeholder="Ссылка на картинку">
           <span class="editor__error editor__error_hidden" id="editor_image-adder__image-url-error"> </span>
           <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-info">Создать</button>
-          <button class="editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
+          <button class="popup__btn-close editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         </form>
       </div>
     </div>
 
     <div class="popup popup-viewer">
       <div class="viewer popup__viewer-container">
-        <button class="viewer__btn-close hover-breathing hover-breathing_deep" type="button"></button>
+        <button class="popup__btn-close viewer__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         <img class="viewer__image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="no-image">
         <p class="viewer__title"></p>
       </div>
@@ -77,12 +76,11 @@
 
   <template id="template-card">
     <li class="card">
-      <img class="card__image" src="" alt="">
+      <img class="card__image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="">
       <p class="card__caption"></p>
       <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
       <button class="card__btn-remove hover-breathing hover-breathing_deep" type="button"></button>
     </li>
   </template>
-  <script src="scripts/index.js" type="module"></script>
 </body>
 </html>

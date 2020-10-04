@@ -18,6 +18,7 @@ class Card
     this._setupEventListeners();
   }
 
+
   _prepareCardElement()
   {
     const templateCopy = document.querySelector(this._cardTemplateSelector).content.cloneNode(true);
@@ -33,6 +34,7 @@ class Card
     this._cardCaption.textContent = this._cardData.name;
   }
 
+
   _setupEventListeners()
   {
     this._cardButtonRemove.addEventListener('click', () => this._removeButtonHandler());
@@ -40,18 +42,22 @@ class Card
     this._cardImage.addEventListener('click', () => this._imageClickHandler());
   }
 
+
   _updateLikeButton()
   {
     const likeClassName = 'card__btn-like_liked';
     if (this._isLiked)
-    {
       this._cardButtonLike.classList.add(likeClassName);
-    }
     else
-    {
       this._cardButtonLike.classList.remove(likeClassName);
-    }
   }
+
+
+  getElement()
+  {
+    return this._card;
+  }
+
 
   // Handlers
   _likeButtonHandler()
@@ -60,27 +66,17 @@ class Card
     this._updateLikeButton();
   }
 
+
   _removeButtonHandler()
   {
     this._card.remove();
   }
 
+
   _imageClickHandler()
   {
     if (this._imageClickCallback)
-    {
       this._imageClickCallback(this);
-    }
-  }
-
-  getData()
-  {
-    return Object.assign({}, this._cardData, {isLiked : this._isLiked});
-  }
-
-  getElement()
-  {
-    return this._card;
   }
 }
 
