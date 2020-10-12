@@ -1,4 +1,3 @@
-import Card from '../components/Card.js';
 import API from './API.js';
 
 /*
