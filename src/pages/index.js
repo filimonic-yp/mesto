@@ -45,11 +45,11 @@ const api = new API(apiConfig);
 // Callback handlers
 
 function handleCardImageClick(cardData) {
-  popupViewer.open(cardData)
+  popupViewer.open(cardData);
 }
 
 function handleCardLikeClick(cardData, isLiked) {
-  return (isLiked ? api.likeCard(cardData._id) : api.dislikeCard(cardData._id))
+  return (isLiked ? api.likeCard(cardData._id) : api.dislikeCard(cardData._id));
 }
 
 function handleCardDeleteClick(cardData, onDeleteSuccess) {
@@ -57,7 +57,7 @@ function handleCardDeleteClick(cardData, onDeleteSuccess) {
     const cardId = elements['card-id'];
     return api
       .deleteCard(cardId)
-      .then(() => {onDeleteSuccess()})
+      .then(() => {onDeleteSuccess()});
   });
 
   popupConfirmDelete.open({
@@ -98,7 +98,7 @@ const popupAddCard = new PopupWithForm('.popup-editor_image-adder', (elements) =
     link: elements['image-url']
   };
   return api.sendCard(cardData)
-    .then((serverCardData) => cardSection.addItemFirst(createCardElement(serverCardData)))
+    .then((serverCardData) => cardSection.addItemFirst(createCardElement(serverCardData)));
 });
 
 // Edit User
@@ -108,7 +108,7 @@ const popupEditUser = new PopupWithForm('.popup-editor_profile', (elements) => {
     about: elements['job']
   };
   return api.updateMe(info)
-    .then((newInfo) => userInfo.setUserInfo(newInfo))
+    .then((newInfo) => userInfo.setUserInfo(newInfo));
   });
 
 // Edit avatar
