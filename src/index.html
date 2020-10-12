@@ -15,13 +15,16 @@
     <main class="main page__margin-wrapper">
 
       <section class="profile">
-        <img class="profile__avatar" alt="Изображение пользователя" src="images/avatar.jpg">
+        <div class="profile__avatar-box">
+          <img class="profile__avatar" alt="Изображение пользователя" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+          <button class="profile__btn-set-avatar"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__display-name-wrapper">
-            <h1 class="profile__display-name">Жак-Ив Кусто</h1>
+            <h1 class="profile__display-name"></h1>
             <button class="profile__btn-edit hover-breathing hover-breathing_deep" type="button"></button>
           </div>
-          <p class="profile__job">Исследователь океана</p>
+          <p class="profile__job"></p>
         </div>
         <button class="profile__btn-add hover-breathing hover-breathing_deep" type="button"></button>
       </section>
@@ -40,7 +43,7 @@
           <span class="editor__error editor__error_hidden" id="editor_profile__display-name-error"> </span>
           <input class="editor__input editor__input_job" type="text" name="job" data-error-element-id="editor_profile__job-error" placeholder="Род занятий" required maxlength="200" minlength="2">
           <span class="editor__error editor__error_hidden" id="editor_profile__job-error"> </span>
-          <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-info">Сохранить</button>
+          <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" data-normal-text="Сохранить"  data-progress-text="Сохраняю..." name="submit" value="save-info">Сохранить</button>
           <button class="popup__btn-close editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         </form>
       </div>
@@ -54,7 +57,30 @@
           <span class="editor__error editor__error_hidden" id="editor_image-adder__display-name-error"> </span>
           <input class="editor__input editor__input_url" type="url" name="image-url" data-error-element-id="editor_image-adder__image-url-error" required placeholder="Ссылка на картинку">
           <span class="editor__error editor__error_hidden" id="editor_image-adder__image-url-error"> </span>
-          <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" name="submit" value="save-info">Создать</button>
+          <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" data-normal-text="Создать" data-progress-text="Создаю..." name="submit" value="save-info"></button>
+          <button class="popup__btn-close editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-editor popup-editor_avatar">
+      <div class="popup__editor-container">
+        <form class="editor" name="editor_avatar" autocomplete="off" novalidate>
+          <p class="editor__title">Обновить аватар</p>
+          <input class="editor__input editor__input_url" type="url" name="image-url" data-error-element-id="editor_image-adder__image-url-error" required placeholder="Ссылка на картинку аватара">
+          <span class="editor__error editor__error_hidden" id="editor_image-adder__image-url-error"></span>
+          <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" data-normal-text="Сохранить" data-progress-text="Сохраняю..." name="submit" value="save-info"></button>
+          <button class="popup__btn-close editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup-editor popup-editor_confirmer">
+      <div class="popup__editor-container">
+        <form class="editor" name="editor_confirmer" autocomplete="off" novalidate>
+          <p class="editor__title">Вы уверены?</p>
+          <input type="hidden" name="card-id">
+          <button class="editor__btn-submit hover-breathing hover-breathing_shallow" type="submit" data-normal-text="Да" data-progress-text="Удаляю..." name="submit" value="save-info"></button>
           <button class="popup__btn-close editor__btn-close hover-breathing hover-breathing_deep" type="button"></button>
         </form>
       </div>
@@ -78,7 +104,10 @@
     <li class="card">
       <img class="card__image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt="">
       <p class="card__caption"></p>
-      <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
+      <div class="card__like-control">
+        <button class="card__btn-like hover-breathing hover-breathing_deep" type="button"></button>
+        <p class="card__like-counter">0</p>
+      </div>
       <button class="card__btn-remove hover-breathing hover-breathing_deep" type="button"></button>
     </li>
   </template>

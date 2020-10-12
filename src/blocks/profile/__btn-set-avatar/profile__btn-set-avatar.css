@@ -1,0 +1,26 @@
+.profile__btn-set-avatar {
+  position: absolute;
+  top:0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background-color: rgba(0,0,0,.8);
+  outline: none;
+  opacity: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  background-image: url(./profile__btn-set-avatar.svg);
+  transition: opacity .4s;
+
+}
+
+.profile__btn-set-avatar:hover
+{
+  opacity: 1;
+  cursor: pointer;
+
+}

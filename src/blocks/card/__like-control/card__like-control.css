@@ -1,0 +1,8 @@
+.card__like-control
+{
+  display: flex;
+  flex-direction: column;
+  grid-area: like-control;
+  justify-content: center;
+
+}

@@ -1,0 +1,10 @@
+.profile__avatar-box {
+  display: block;
+  position: relative;
+  height: 120px;
+  width: 120px;
+  min-width: 120px;
+  box-sizing: border-box;
+  border-radius:  50%;
+  overflow: hidden;
+}

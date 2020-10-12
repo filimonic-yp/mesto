@@ -1,6 +1,6 @@
 
 .card__btn-like {
-  grid-area: btn-like;
+  outline: none;
   display: block;
   background-color: inherit;
   border: 0;
@@ -10,7 +10,8 @@
   background-size: contain;
   height: 20px;
   width: 22px;
-  margin: auto auto auto 0;
+  padding: 0;
+  margin: 0 auto;
 }
 
 .card__btn-like:hover {
