@@ -108,7 +108,7 @@ const popupEditUser = new PopupWithForm('.popup-editor_profile', (elements) => {
     about: elements['job']
   };
   return api.updateMe(info)
-    .then(() => userInfo.setUserInfo(info))
+    .then((newInfo) => userInfo.setUserInfo(newInfo))
   });
 
 // Edit avatar
